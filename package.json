@@ -16,5 +16,17 @@
   "bugs": {
     "url": "https://github.com/BryceStPierre/personal-toolkit-data-collection/issues"
   },
-  "homepage": "https://github.com/BryceStPierre/personal-toolkit-data-collection#readme"
+  "homepage": "https://github.com/BryceStPierre/personal-toolkit-data-collection#readme",
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.9"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "pg": "^7.7.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  }
 }
