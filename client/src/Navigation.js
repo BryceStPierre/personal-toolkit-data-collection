@@ -21,7 +21,7 @@ class Navigation extends Component {
         <Collapse isOpen={this.props.isOpen} navbar>
           <Nav className='ml-auto' navbar>
             <NavItem>
-              <Link className='nav-link' to='/collection'>Collection</Link>
+              <Link className='nav-link' to='/about'>About</Link>
             </NavItem>
             {/* <NavItem>
               <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
