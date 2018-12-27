@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Navigation from './Navigation';
+import Login from './Login';
+import About from './About';
+import Collection from './Collection';
 
 import './App.css';
 
@@ -11,7 +14,8 @@ class App extends Component {
     super(props)
   
     this.state = {
-      isOpen: false
+      isOpen: false,
+      isLoggedIn: false
     };
   }
 
@@ -21,16 +25,15 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Navigation onToggle={this.toggle} isOpen={this.state.isOpen} />
-        <Container>
-          <Row>
-            <Col>
-            
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      <Router>
+        <div>
+          <Navigation onToggle={this.toggle} isOpen={this.state.isOpen} />
+
+          <Route path="/" exact component={Login} />
+          <Route path="/about" component={About} />
+          <Route path="/collection" component={Collection} />
+        </div>
+      </Router>
     );
   }
 }

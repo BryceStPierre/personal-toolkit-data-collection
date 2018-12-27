@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
 import {
   Navbar, NavbarBrand, NavbarToggler, Collapse,
@@ -11,21 +12,21 @@ import bryce from './bryce.png';
 class Navigation extends Component {
   render() {
     return (
-      <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">
-          <img src={bryce} className={"branding"} alt="Bryce" width={24} height={29} />
+      <Navbar color='light' light expand='sm'>
+        <Link className='navbar-brand' to='/'>
+          <img src={bryce} className={'branding'} alt='Bryce' />
           Data Collection
-        </NavbarBrand>
+        </Link>
         <NavbarToggler onClick={this.props.onToggle} />
         <Collapse isOpen={this.props.isOpen} navbar>
-          <Nav className="ml-auto" navbar>
+          <Nav className='ml-auto' navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <Link className='nav-link' to='/collection'>Collection</Link>
             </NavItem>
-            <NavItem>
+            {/* <NavItem>
               <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-            </NavItem>
-            <UncontrolledDropdown nav inNavbar>
+            </NavItem> */}
+            {/* <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Options
               </DropdownToggle>
@@ -41,7 +42,7 @@ class Navigation extends Component {
                   Reset
                 </DropdownItem>
               </DropdownMenu>
-            </UncontrolledDropdown>
+            </UncontrolledDropdown> */}
           </Nav>
         </Collapse>
       </Navbar>
