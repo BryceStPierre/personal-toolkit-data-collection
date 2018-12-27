@@ -30,13 +30,6 @@ class App extends Component {
       <Router>
         <div>
           <Navigation onToggle={this.toggleNavigation} isOpen={this.state.isOpen} />
-          <Container className={"mt-4"}>
-            <Row className={"mb-3"}>
-              <Col>
-                <h3>Page Title</h3>
-              </Col>
-            </Row>
-          </Container>
 
           <Route path="/" exact component={Login} />
           <Route path="/about" component={About} />

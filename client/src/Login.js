@@ -4,10 +4,10 @@ import { Container, Row, Col } from 'reactstrap';
 class Login extends Component {
   render() {
     return (
-      <Container>
-        <Row>
+      <Container className={"mt-4"}>
+        <Row className={"mb-3"}>
           <Col>
-            Login
+            <h3>Page Title</h3>
           </Col>
         </Row>
       </Container>

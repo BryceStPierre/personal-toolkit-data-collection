@@ -4,10 +4,10 @@ import { Container, Row, Col } from 'reactstrap';
 class Collection extends Component {
   render() {
     return (
-      <Container>
-        <Row>
+      <Container className={"mt-4"}>
+        <Row className={"mb-3"}>
           <Col>
-            Collection
+            <h3>Page Title</h3>
           </Col>
         </Row>
       </Container>
