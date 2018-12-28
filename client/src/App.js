@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Container, Row, Col } from 'reactstrap';
 
 import Navigation from './Navigation';
 import Login from './Login';
 import About from './About';
 import Collection from './Collection';
 import Footer from './Footer';
-
-import './App.css';
 
 class App extends Component {
 

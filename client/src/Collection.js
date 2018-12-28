@@ -7,7 +7,7 @@ class Collection extends Component {
       <Container className={"mt-4"}>
         <Row className={"mb-3"}>
           <Col>
-            <h3>Page Title</h3>
+            <h3>Collection</h3>
           </Col>
         </Row>
       </Container>

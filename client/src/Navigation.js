@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 
 import {
-  Container, Navbar, NavbarBrand, NavbarToggler, Collapse,
-  Nav, NavItem, NavLink, UncontrolledDropdown,
-  DropdownToggle, DropdownMenu, DropdownItem
+  Container, 
+  Navbar, NavbarToggler, 
+  Collapse, Nav, NavItem
 } from 'reactstrap';
 
 import bryce from './bryce.png';
@@ -24,26 +24,6 @@ class Navigation extends Component {
               <NavItem>
                 <Link className='nav-link' to='/about'>About</Link>
               </NavItem>
-              {/* <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-              </NavItem> */}
-              {/* <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown> */}
             </Nav>
           </Collapse>
         </Container>
