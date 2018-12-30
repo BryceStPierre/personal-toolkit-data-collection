@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 
 class Login extends Component {
-  render() {
+  render () {
     return (
       <Container className={'mt-4'}>
         <Row className={'justify-content-center'}>

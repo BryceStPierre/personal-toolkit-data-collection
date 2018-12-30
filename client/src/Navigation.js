@@ -10,7 +10,7 @@ import {
 import bryce from './bryce.png';
 
 class Navigation extends Component {
-  render() {
+  render () {
     return (
       <Navbar color='light' light expand='sm'>
         <Container>

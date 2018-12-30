@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 
 class About extends Component {
-  render() {
+  render () {
     return (
       <Container className={"mt-4"}>
         <Row className={"mb-3"}>

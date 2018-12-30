@@ -10,7 +10,7 @@ import Footer from './Footer';
 class App extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
   
     this.state = {
       isOpen: false,
