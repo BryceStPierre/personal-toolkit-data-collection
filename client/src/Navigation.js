@@ -21,6 +21,9 @@ class Navigation extends Component {
           <NavbarToggler onClick={this.props.onToggle} />
           <Collapse isOpen={this.props.isOpen} navbar>
             <Nav className='ml-auto' navbar>
+            <NavItem>
+                <Link className='nav-link' to='/collection'>Collection</Link>
+              </NavItem>
               <NavItem>
                 <Link className='nav-link' to='/about'>About</Link>
               </NavItem>

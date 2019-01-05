@@ -14,7 +14,7 @@ class Login extends Component {
         <Row className={'justify-content-center'}>
           <Col md={4}>
             <h3 className={'mb-3'}>Sign In</h3>
-            <p>Please provide your password to proceed.</p>
+            <p>Please provide your password.</p>
             <Form>
               <FormGroup>
                 <Label for='password' hidden>Password</Label>
