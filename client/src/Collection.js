@@ -8,25 +8,37 @@ import {
 import { FaKeyboard, FaMicrophone } from 'react-icons/fa';
 
 class Collection extends Component {
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      text: 'Some sample text...'
+    };
+  }
+  
+  componentDidMount () {
+    document.title = 'Data Collection | Bryce St. Pierre';
+  }
+
   render () {
     return (
-      <Container className={"mt-4"}>
-        <Row className={"mb-3"}>
+      <Container className={'mt-4'}>
+        <Row className={'mb-3'}>
           <Col>
             <h3>Collection</h3>
           </Col>
         </Row>
 
         <Row className={'justify-content-center'}>
-          <Col md={4} lg={6}>
+          <Col sm={6} md={6} lg={6}>
             <ButtonGroup className={'w-100'}>
               <Button color='primary'>Type &ensp;<FaKeyboard /></Button>
               <Button color='danger'>Record &ensp;<FaMicrophone /></Button>
             </ButtonGroup>
             <Form>
               <FormGroup>
-                <Label for="exampleText">Text Area</Label>
-                <Input type="textarea" name="text" id="exampleText" value="HEllo this is the text" />
+                <Label for='text'>Text</Label>
+                <Input type='textarea' name='text' id='text' value={this.state.text} />
               </FormGroup>
             </Form>
           </Col>

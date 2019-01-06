@@ -1,20 +1,53 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+  withRouter
+} from 'react-router-dom';
 
 import Navigation from './Navigation';
 import Login from './Login';
 import About from './About';
 import Collection from './Collection';
+import NotFound from './NotFound';
 import Footer from './Footer';
 
-class App extends Component {
+const auth = {
+  isAuthenticated: false,
+  signIn (d) {
+    this.isAuthenticated = true;
+  },
+  signOut (d) {
+    this.isAuthenticated = false;
+  }
+}
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route 
+    {...rest}
+    render={props => 
+      auth.isAuthenticated ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: '/',
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);
+
+class App extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
-      isOpen: false,
-      isLoggedIn: false
+      isOpen: false
     };
   }
 
@@ -27,11 +60,12 @@ class App extends Component {
       <Router>
         <div>
           <Navigation onToggle={this.toggleNavigation} isOpen={this.state.isOpen} />
-
-          <Route path="/" exact component={Login} />
-          <Route path="/about" component={About} />
-          <Route path="/collection" component={Collection} />
-
+          <Switch>
+            <Route path='/' exact component={Login} />
+            <Route path='/about' component={About} />
+            <PrivateRoute path='/collection' component={Collection} />
+            <Route component={NotFound} />
+          </Switch>
           <Footer />
         </div>
       </Router>

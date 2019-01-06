@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+
 import { Container, Row, Col } from 'reactstrap';
 
 class About extends Component {
+  componentDidMount () {
+    document.title = 'About | Bryce St. Pierre';
+  }
+
   render () {
     return (
       <Container className={"mt-4"}>

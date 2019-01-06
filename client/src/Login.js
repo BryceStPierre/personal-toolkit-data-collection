@@ -8,11 +8,15 @@ import {
 import { FaRegArrowAltCircleRight } from 'react-icons/fa';
 
 class Login extends Component {
+  componentDidMount () {
+    document.title = 'Sign In | Bryce St. Pierre';
+  }
+
   render () {
     return (
       <Container className={'mt-4'}>
         <Row className={'justify-content-center'}>
-          <Col md={4}>
+          <Col xs={9} sm={6} md={6}>
             <h3 className={'mb-3'}>Sign In</h3>
             <p>Please provide your password.</p>
             <Form>
