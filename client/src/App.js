@@ -4,7 +4,7 @@ import {
   Route,
   Redirect,
   Switch,
-  withRouter
+  // withRouter
 } from 'react-router-dom';
 
 import Navigation from './Navigation';
@@ -14,61 +14,78 @@ import Collection from './Collection';
 import NotFound from './NotFound';
 import Footer from './Footer';
 
-const auth = {
-  isAuthenticated: false,
-  signIn (d) {
-    this.isAuthenticated = true;
-  },
-  signOut (d) {
-    this.isAuthenticated = false;
-  }
-}
+// const auth = {
+//   isAuthenticated: false,
+//   signIn (d) {
+//     this.isAuthenticated = true;
+//   },
+//   signOut (d) {
+//     this.isAuthenticated = false;
+//   }
+// }
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route 
-    {...rest}
-    render={props => 
-      auth.isAuthenticated ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: '/',
-            state: { from: props.location }
-          }}
-        />
-      )
-    }
-  />
-);
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route 
+//     {...rest}
+//     render={props => 
+//       auth.isAuthenticated ? (
+//         <Component {...props} />
+//       ) : (
+//         <Redirect
+//           to={{
+//             pathname: '/',
+//             state: { from: props.location }
+//           }}
+//         />
+//       )
+//     }
+//   />
+// );
 
 class App extends Component {
   constructor(props) {
     super(props);
   
     this.state = {
-      signedIn: false,
-      isOpen: false
+      isSignedIn: false,
+      isOpen: false,
+      user: {}
     };
   }
 
   componentWillMount () {
-  
+    fetch('/api/authenticate', { 
+      credentials: 'include' 
+    })
+    .then(res => res.json())
+    .then(user => {
+      this.handleSignIn(user);
+    });
   }
 
-  toggleNavigation = () => {
+  handleSignIn = (user) => {
+    this.setState({
+      user,
+      isSignedIn: user ? true : false
+    });
+    console.log(user);
+  };
+
+  handleToggleNavigation = () => {
     this.setState({ isOpen: !this.state.isOpen });
-  }
+  };
 
   render() {
     return (
       <Router>
         <div>
-          <Navigation onToggle={this.toggleNavigation} isOpen={this.state.isOpen} />
+          <Navigation onToggle={this.handleToggleNavigation} isOpen={this.state.isOpen} />
           <Switch>
-            <Route path='/' exact component={Login} />
+            <Route path='/' exact render={(props) => (<Login {...props} onSignIn={this.handleSignIn} />)} />
             <Route path='/about' component={About} />
-            <PrivateRoute path='/collection' component={Collection} />
+            { this.state.isSignedIn 
+              ? <Route path='/collection' component={Collection} /> 
+              : <Redirect to={{ pathname: '/', state: { from: this.props.location } }} /> }
             <Route component={NotFound} />
           </Switch>
           <Footer />

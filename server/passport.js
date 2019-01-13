@@ -12,9 +12,13 @@ passport.use(new Strategy(
         return done(null, false);
   
       bcrypt.compare(password, user.password, (err, res) => {
-        if (res)
-          return done(null, user);
-        else
+        if (res) {
+          return done(null, {
+            id: user.id,
+            displayNameLong: user.display_name_long,
+            displayNameShort: user.display_name_short
+          });
+        } else
           return done(null, false);
       });
     });

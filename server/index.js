@@ -11,6 +11,7 @@ const ENV = process.env.NODE_ENV || 'development';
 const PORT = process.env.PORT || 3001;
 
 let backend = express();
+backend.use(cookieParser());
 backend.use(bodyParser.json());
 backend.use(bodyParser.urlencoded({ extended: true }));
 backend.use(session({ secret: 'f9mn6lsawn4ifghohk321', resave: false, saveUninitialized: false }));
