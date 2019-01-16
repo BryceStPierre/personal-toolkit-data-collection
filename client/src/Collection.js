@@ -14,7 +14,7 @@ class Collection extends Component {
     super(props);
   
     this.state = {
-      method: 'text',
+      //method: 'text',
       domain: true,
       category: false,
       listOfDomains: [],
@@ -27,11 +27,11 @@ class Collection extends Component {
     document.title = 'Data Collection | Bryce St. Pierre';
   }
 
-  handleClick = (e) => {
-    this.setState({
-      method: e.target.value === 'text'
-    });
-  };
+  // handleChange = (e) => {
+  //   this.setState({
+  //     e.target.name: e.target.value
+  //   });
+  // };
 
   handleRecord = (e) => {
 
@@ -52,10 +52,10 @@ class Collection extends Component {
         <Row className={'justify-content-center'}>
           <Col sm={8}>
             <Form onSubmit={this.handleSubmit}>
-              <FormGroup className={'text-center'}>
+              {/* <FormGroup className={'text-center'}>
                 <Button color='primary' value='text' onClick={this.handleClick}>Text&ensp;<FaKeyboard /></Button>{' '}
                 <Button color='secondary' value='speech' onClick={this.handleClick}>Speech&ensp;<FaMicrophone /></Button>
-              </FormGroup>
+              </FormGroup> */}
               <FormGroup>
                 <Label for='domain'>Domain</Label>
                 <Input type='select' name='domain' id='domain'>
@@ -64,34 +64,75 @@ class Collection extends Component {
                 </Input>
               </FormGroup>
 
+              <FormGroup className={'text-center'}>
+                <Button color='primary' onClick={this.handleClick}>New Domain&ensp;<FaPlus /></Button>
+              </FormGroup>
+
               <FormGroup>
-                <Button color='success'>Save&ensp;<FaCheck /></Button>{' '}
+                <InputGroup>
+                  <Input 
+                    id='newDomain'
+                    name='newDomain'
+                    value={this.newDomain} 
+                    placeholder='New domain, topic, data of interest...' />
+                  <InputGroupAddon addonType='append'>
+                    <Button color='danger'><FaMicrophoneAlt /></Button>
+                  </InputGroupAddon>
+                </InputGroup>
+              </FormGroup>
+
+              <FormGroup className={'text-center'}>
+                <Button color='success'>Create&ensp;<FaCheck /></Button>{' '}
                 <Button color='danger'>Cancel&ensp;<FaTimes /></Button>
               </FormGroup>
 
-              { this.state.category && <FormGroup>
+              <FormGroup>
                 <Label for='category'>Category</Label>
                 <Input type='select' name='category' id='category'>
-
+                  { this.state.listOfCategories.length === 0 && <option>No categories created yet.</option> }
+                  { this.state.listOfCategories.map(d => <option>{d}</option>) }
                 </Input>
-              </FormGroup> }
-              <FormGroup className={'text-center'}>
-                <Button color='primary' onClick={this.handleClick}>New Domain&ensp;<FaPlus /></Button>{' '}
-                { this.state.category && <Button color='primary' onClick={this.handleClick}>New Category&ensp;<FaPlus /></Button> }{' '}
-                
               </FormGroup>
+
+              <FormGroup className={'text-center'}>
+                <Button color='primary' onClick={this.handleClick}>New Category&ensp;<FaPlus /></Button>
+              </FormGroup>
+
               <FormGroup>
-                <Label for='rawText'>Text</Label>
+                <InputGroup>
+                  <Input 
+                    id='newDomain'
+                    name='newDomain'
+                    value={this.newDomain} 
+                    placeholder='New category, classification, grouping...' />
+                  <InputGroupAddon addonType='append'>
+                    <Button color='danger'><FaMicrophoneAlt /></Button>
+                  </InputGroupAddon>
+                </InputGroup>
+              </FormGroup>
+
+              <FormGroup className={'text-center'}>
+                <Button color='success'>Create&ensp;<FaCheck /></Button>{' '}
+                <Button color='danger'>Cancel&ensp;<FaTimes /></Button>
+              </FormGroup>
+
+              <FormGroup>
+                <Label for='rawText'>Data</Label>
                 <Input 
                   id='rawText' 
                   name='rawText' 
-                  type='textarea' 
-                  value={this.state.rawText} />
+                  type='textarea'
+                  value={this.state.rawText} 
+                  placeholder='Text, description, information...' />
               </FormGroup>
+
               <FormGroup className={'text-center'}>
-                <Button color='danger' onClick={this.handleRecord}>Record&ensp;<FaMicrophoneAlt /></Button>{' '}
-                <Button color='success' type='submit'>Submit&ensp;<FaPaperPlane /></Button>
+                <Button color='danger' onClick={this.handleRecord}>Record&ensp;<FaMicrophoneAlt /></Button>
               </FormGroup>
+
+              <FormGroup className={'text-center'}>
+                <Button color='success' type='submit'>Submit&ensp;<FaPaperPlane /></Button>
+              </FormGroup>                
             </Form>
           </Col>
         </Row>

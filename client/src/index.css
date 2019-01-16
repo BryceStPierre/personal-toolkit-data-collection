@@ -17,3 +17,11 @@
 .navbar-toggler {
   border: none;
 }
+
+.bg-light {
+  background-color: #fff!important;
+}
+
+#rawText {
+  height: 100px;
+}
