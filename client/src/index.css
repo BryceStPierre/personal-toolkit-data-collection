@@ -2,7 +2,7 @@
   margin-right: 0.75rem;
   margin-top: -0.25rem;
   width: 24px;
-  height: 29px;
+  height: 30px;
 }
 
 .branding-footer {
@@ -22,6 +22,6 @@
   background-color: #fff!important;
 }
 
-#rawText {
-  height: 100px;
+#data {
+  height: 80px;
 }

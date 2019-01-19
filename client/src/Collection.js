@@ -8,6 +8,8 @@ import {
   FaMicrophoneAlt, FaPlus, FaCheck, FaPaperPlane, FaTimes
 } from 'react-icons/fa';
 
+import NewMetaEntryFormGroup from './NewMetaEntryFormGroup';
+
 const fakeDoms = [
   { label: 'DLabel1', value: 'DValue1' },
   { label: 'DLabel2', value: 'DValue2' },
@@ -33,7 +35,7 @@ class Collection extends Component {
       addNewCategory: false,
       listOfDomains: [],
       listOfCategories: [],
-      rawText: ''
+      data: ''
     };
   }
   
@@ -46,22 +48,22 @@ class Collection extends Component {
     });
   }
 
-  // handleChange = (e) => {
-  //   this.setState({
-  //     e.target.name: e.target.value
-  //   });
-  // };
-
-  handleNewEntry = (e) => {
+  handleNewEntryToggle = (e) => {
     this.setState({
       addNewDomain: e.target.value === 'newDomain',
       addNewCategory: e.target.value ==='newCategory'
     });
   }
 
+  handleInputChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
   handleMetaChange = (e) => {
     this.setState({
-      stage: e.target.value === null ? 0 : 1,
+      stage: e.target.value === -1 ? 0 : 1,
       [e.target.name]: e.target.value
     });
   }
@@ -90,13 +92,15 @@ class Collection extends Component {
               { !this.state.addNewDomain && <FormGroup>
                 <Label for='domain'>Domain</Label>
                 <Input type='select' name='domain' id='domain' onChange={this.handleMetaChange}>
-                  <option key={null} value={null}>Select a domain.</option>
+                  <option key={-1} value={-1}>
+                    { this.state.listOfDomains.length === 0 ? 'No domains created yet.' : 'Select a domain.' }
+                  </option>
                   { this.state.listOfDomains.map(d => (<option key={d.value} value={d.value}>{d.label}</option>)) }
                 </Input>
               </FormGroup> }
 
               { !this.state.addNewDomain && <FormGroup className={'text-center'}>
-                <Button color='primary' value='newDomain' onClick={this.handleNewEntry}>New Domain&ensp;<FaPlus /></Button>
+                <Button color='primary' value='newDomain' onClick={this.handleNewEntryToggle}>New Domain&ensp;<FaPlus /></Button>
               </FormGroup> }
 
               { this.state.addNewDomain && (
@@ -108,9 +112,10 @@ class Collection extends Component {
                         id='newDomain'
                         name='newDomain'
                         value={this.state.newDomain} 
+                        onChange={this.handleInputChange}
                         placeholder='New domain, topic, data of interest...' />
                       <InputGroupAddon addonType='append'>
-                        <Button color='danger'><FaMicrophoneAlt /></Button>
+                        <Button color='danger' value='newDomain' onClick={this.handleRecord}><FaMicrophoneAlt /></Button>
                       </InputGroupAddon>
                     </InputGroup>
                   </FormGroup>
@@ -124,13 +129,15 @@ class Collection extends Component {
               { this.state.stage > 0 && !this.state.addNewCategory && <FormGroup>
                 <Label for='category'>Category</Label>
                 <Input type='select' name='category' id='category' onChange={this.handleMetaChange}>
-                  <option key={null} value={null}>Select a category.</option>
+                  <option key={-1} value={-1}>
+                    { this.state.listOfCategories.length === 0 ? 'No categories created yet.' : 'Select a category.' }
+                  </option>
                   { this.state.listOfCategories.map(c => <option key={c.value} value={c.value}>{c.label}</option>) }
                 </Input> 
               </FormGroup> }
 
               { this.state.stage > 0 && !this.state.addNewCategory && <FormGroup className={'text-center'}>
-                <Button color='primary' value='newCategory' onClick={this.handleNewEntry}>New Category&ensp;<FaPlus /></Button>
+                <Button color='primary' value='newCategory' onClick={this.handleNewEntryToggle}>New Category&ensp;<FaPlus /></Button>
               </FormGroup> }
 
               { this.state.stage > 0 && this.state.addNewCategory && (
@@ -141,10 +148,11 @@ class Collection extends Component {
                       <Input 
                         id='newCategory'
                         name='newCategory'
-                        value={this.state.newCategory} 
+                        value={this.state.newCategory}
+                        onChange={this.handleInputChange}
                         placeholder='New category, classification, grouping...' />
                       <InputGroupAddon addonType='append'>
-                        <Button color='danger'><FaMicrophoneAlt /></Button>
+                        <Button color='danger' value='newCategory' onClick={this.handleRecord}><FaMicrophoneAlt /></Button>
                       </InputGroupAddon>
                     </InputGroup>
                   </FormGroup>
@@ -156,12 +164,13 @@ class Collection extends Component {
               ) }
 
               { this.state.stage > 0 && <FormGroup>
-                <Label for='rawText'>Data</Label>
+                <Label for='data'>Data</Label>
                 <Input 
-                  id='rawText' 
-                  name='rawText' 
+                  id='data' 
+                  name='data' 
                   type='textarea'
-                  value={this.state.rawText} 
+                  value={this.state.data} 
+                  onChange={this.handleInputChange}
                   placeholder='Text, description, information...' />
               </FormGroup> }
 
