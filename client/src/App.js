@@ -3,8 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Redirect,
-  Switch,
-  // withRouter
+  Switch
 } from 'react-router-dom';
 
 import Navigation from './Navigation';
@@ -68,7 +67,7 @@ class App extends Component {
       user,
       isSignedIn: user ? true : false
     });
-    console.log(user);
+    // console.log(user);
   };
 
   handleToggleNavigation = () => {
