@@ -7,7 +7,7 @@ import {
 
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
-class NewMetaEntryFormGroup extends Component {
+class NewMetaEntry extends Component {
   render() {
     const { label, name, value, placeholder } = this.props;
 
@@ -20,30 +20,30 @@ class NewMetaEntryFormGroup extends Component {
               id={name}
               name={name}
               value={value} 
-              onChange={this.props.onInputChange}
-              placeholder={placeholder} />
+              placeholder={placeholder} 
+              onChange={this.props.onInputChange} />
             <InputGroupAddon addonType='append'>
               <Button 
                 color='danger' 
                 value={name} 
-                onClick={this.props.onRecord}>
+                onClick={this.props.onRecord} >
                 {this.props.children}
               </Button>
             </InputGroupAddon>
           </InputGroup>
         </FormGroup>
-        <FormGroup className={'text-center'}>
+        <FormGroup className={'text-center'} >
           <Button 
             color='success' 
             value={name} 
-            onClick={this.props.onNewMetaEntryCreate}>
+            onClick={this.props.onCreate} >
             Create&ensp;<FaCheck />
           </Button>
           {' '}
           <Button 
             color='danger' 
             value={name} 
-            onClick={this.props.onNewMetaEntryCancel}>
+            onClick={this.props.onCancel} >
             Cancel&ensp;<FaTimes />
           </Button>
         </FormGroup>
@@ -52,4 +52,4 @@ class NewMetaEntryFormGroup extends Component {
   }
 }
 
-export default NewMetaEntryFormGroup;
+export default NewMetaEntry;
