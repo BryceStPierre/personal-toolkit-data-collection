@@ -52,7 +52,7 @@ class Login extends Component {
       return res.json();
     })
     .then(user => {
-      if (user) 
+      if (user)
         this.props.onSignIn(user);
       this.setState({
         error: user ? '' : 'Incorrect password. Please try again.',

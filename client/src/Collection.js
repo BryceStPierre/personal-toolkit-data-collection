@@ -70,7 +70,6 @@ class Collection extends Component {
     // });
 
     receive('/api/domain', res => {
-      console.log(res);
       this.setState({ domainsList: res });
     });
   }

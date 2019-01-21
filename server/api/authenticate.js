@@ -8,11 +8,7 @@ module.exports = (passport) => {
 
   router.post('/', passport.authenticate('local'), (req, res) => {
     console.log(`Authenticated successfully on ${Date(Date.now()).toString()}.`);
-    res.json({
-      displayNameLong: req.user.display_name_long,
-      displayNameShort: req.user.display_name_short,
-      lastLogin: req.user.last_login
-    });
+    res.json(req.user);
   });
 
   router.delete('/', (req, res) => {

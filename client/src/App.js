@@ -48,11 +48,15 @@ class App extends Component {
     this.state = {
       isSignedIn: false,
       isOpen: false,
-      user: {}
+      user: null
     };
   }
 
   componentWillMount () {
+    this.getSignIn();
+  }
+
+  getSignIn = () => {
     fetch('/api/authenticate', { 
       credentials: 'include' 
     })
@@ -63,11 +67,11 @@ class App extends Component {
   }
 
   handleSignIn = (user) => {
+    console.log(user);
     this.setState({
-      user,
+      user: user,
       isSignedIn: user ? true : false
     });
-    // console.log(user);
   };
 
   handleToggleNavigation = () => {
@@ -80,7 +84,7 @@ class App extends Component {
         <div>
           <Navigation onToggle={this.handleToggleNavigation} isOpen={this.state.isOpen} />
           <Switch>
-            <Route path='/' exact render={(props) => (<Login {...props} onSignIn={this.handleSignIn} />)} />
+            <Route path='/' exact render={props => <Login {...props} onSignIn={this.handleSignIn} />} />
             <Route path='/about' component={About} />
             { this.state.isSignedIn 
               ? <Route path='/collection' component={Collection} /> 
@@ -88,7 +92,7 @@ class App extends Component {
             <Route path='/collection' component={Collection} />   
             <Route component={NotFound} />
           </Switch>
-          <Footer />
+          <Footer user={this.state.user}/>
         </div>
       </Router>
     );

@@ -22,6 +22,11 @@
   background-color: #fff!important;
 }
 
+#user-display {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+
 #data {
   height: 80px;
 }

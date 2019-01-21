@@ -15,6 +15,7 @@ passport.use(new Strategy(
         if (res) {
           return done(null, {
             id: user.id,
+            lastLogin: user.last_login,
             displayNameLong: user.display_name_long,
             displayNameShort: user.display_name_short
           });
