@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Container, Row, Col } from 'reactstrap';
-import values from './values';
+import values from './utils/values';
 
 class About extends Component {
   componentDidMount () {
