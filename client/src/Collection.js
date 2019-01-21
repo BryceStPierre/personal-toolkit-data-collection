@@ -11,6 +11,8 @@ import {
 import MetaEntryCreate from './MetaEntryCreate';
 import MetaEntrySelect from './MetaEntrySelect';
 
+import receive from './utils/receive';
+
 // const fakeDoms = [
 //   { label: 'DLabel1', value: 1 },
 //   { label: 'DLabel2', value: 2 },
@@ -23,18 +25,18 @@ import MetaEntrySelect from './MetaEntrySelect';
 // ]
 
 const defaultState = {
+  data: '',
   stage: 0,
   domain: 0,
   category: 0,
   newDomain: '',
   newCategory: '',
+  domainsList: [],
+  categoriesList: [],  
   flags: {
     newDomain: false,
     newCategory: false
-  },
-  listOfDomains: [],
-  listOfCategories: [],
-  data: ''
+  }
 };
 
 class Collection extends Component {
@@ -47,9 +49,29 @@ class Collection extends Component {
   componentDidMount () {
     document.title = 'Data Collection | Bryce St. Pierre';
 
-    this.setState({
-      // listOfDomains: fakeDoms,
-      // listOfCategories: fakeCats
+    this.getDomainsList();
+
+    // this.setState({
+    //   // listOfDomains: fakeDoms,
+    //   // listOfCategories: fakeCats
+    // });
+  }
+
+  getDomainsList = () => {
+
+    // fetch('/api/domain', {
+    //   //credentials: 'include',
+    //   //headers: { 'Content-Type': 'application/json' }
+    // })
+    // .then(res => res.json())
+    // .then(res => {
+    //   console.log(res);
+    //   this.setState({ domainsList: res });
+    // });
+
+    receive('/api/domain', res => {
+      console.log(res);
+      this.setState({ domainsList: res });
     });
   }
 
@@ -121,7 +143,7 @@ class Collection extends Component {
                 label='Domain'
                 singular='domain'
                 plural='domains'
-                list={this.state.listOfDomains}
+                list={this.state.domainsList}
                 onMetaChange={this.handleMetaChange} /> }
 
               { !newDomain && <FormGroup className={'text-center'}>
@@ -150,7 +172,7 @@ class Collection extends Component {
                 label='Category'
                 singular='category'
                 plural='categories'
-                list={this.state.listOfCategories}
+                list={this.state.categoriesList}
                 onMetaChange={this.handleMetaChange} /> }
 
               { this.state.stage > 0 && !newCategory && <FormGroup className={'text-center'}>

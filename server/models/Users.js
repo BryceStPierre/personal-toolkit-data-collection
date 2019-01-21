@@ -4,7 +4,6 @@ let db = require('../database');
 
 class Users {
   static retrieveByUsername (username, callback) {
-    console.log(username);
     db.query('SELECT * FROM app.users WHERE username = $1', [username], (err, res) => {
       if (err)
         return callback(err);
