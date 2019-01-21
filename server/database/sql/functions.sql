@@ -1,3 +1,6 @@
+----------------------
+--Create a new domain.
+----------------------
 CREATE OR REPLACE FUNCTION meta.create_domain (
   domain_name TEXT,
   domain_label TEXT
@@ -35,9 +38,9 @@ BEGIN
 END; 
 $$ LANGUAGE 'plpgsql'
 
-----------------------
+--------------------
 --List domain items.
-----------------------
+--------------------
 CREATE OR REPLACE FUNCTION meta.domain_items ()
 RETURNS TABLE (
   value INT,

@@ -7,7 +7,7 @@ import {
 
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
-class NewMetaEntry extends Component {
+class MetaEntryCreate extends Component {
   render() {
     const { label, name, value, placeholder } = this.props;
 
@@ -52,4 +52,4 @@ class NewMetaEntry extends Component {
   }
 }
 
-export default NewMetaEntry;
+export default MetaEntryCreate;

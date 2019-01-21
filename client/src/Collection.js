@@ -8,7 +8,7 @@ import {
   FaMicrophoneAlt, FaPlus, FaPaperPlane
 } from 'react-icons/fa';
 
-import NewMetaEntry from './NewMetaEntry';
+import MetaEntryCreate from './MetaEntryCreate';
 import MetaEntrySelect from './MetaEntrySelect';
 
 // const fakeDoms = [
@@ -62,6 +62,8 @@ class Collection extends Component {
   handleNewEntrySubmit = (e) => {
     let flags = Object.assign({}, this.state.flags);
     flags[e.target.value] = false;
+
+
 
     this.setState({
       flags: flags
@@ -123,10 +125,15 @@ class Collection extends Component {
                 onMetaChange={this.handleMetaChange} /> }
 
               { !newDomain && <FormGroup className={'text-center'}>
-                <Button color='primary' value='newDomain' onClick={this.handleNewEntryToggle}>New Domain&ensp;<FaPlus /></Button>
+                <Button 
+                  color='primary' 
+                  value='newDomain' 
+                  onClick={this.handleNewEntryToggle}>
+                  New Domain&ensp;<FaPlus />
+                </Button>
               </FormGroup> }
 
-              { newDomain && <NewMetaEntry
+              { newDomain && <MetaEntryCreate
                   name='newDomain'
                   value={this.state.newDomain}
                   label='New Domain'
@@ -136,7 +143,7 @@ class Collection extends Component {
                   onCancel={this.handleNewEntryCancel}
                   onInputChange={this.handleInputChange}>
                 <FaMicrophoneAlt />
-              </NewMetaEntry> }
+              </MetaEntryCreate> }
 
               { this.state.stage > 0 && !newCategory && <MetaEntrySelect 
                 name='category'
@@ -147,10 +154,15 @@ class Collection extends Component {
                 onMetaChange={this.handleMetaChange} /> }
 
               { this.state.stage > 0 && !newCategory && <FormGroup className={'text-center'}>
-                <Button color='primary' value='newCategory' onClick={this.handleNewEntryToggle}>New Category&ensp;<FaPlus /></Button>
+                <Button 
+                  color='primary' 
+                  value='newCategory' 
+                  onClick={this.handleNewEntryToggle}>
+                  New Category&ensp;<FaPlus />
+                </Button>
               </FormGroup> }
 
-              { newCategory && <NewMetaEntry
+              { newCategory && <MetaEntryCreate
                   name='newCategory'
                   value={this.state.newCategory}
                   label='New Category'
@@ -160,7 +172,7 @@ class Collection extends Component {
                   onCancel={this.handleNewEntryCancel}
                   onInputChange={this.handleInputChange}>
                 <FaMicrophoneAlt />
-              </NewMetaEntry> }
+              </MetaEntryCreate> }
 
               { this.state.stage > 0 && <FormGroup>
                 <Label for='data'>Data</Label>
