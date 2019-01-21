@@ -5,7 +5,11 @@ import {
   Container, Row, Col, Button, Label,
   Input, Form, FormFeedback, FormGroup
 } from 'reactstrap';
+
 import { FaRegArrowAltCircleRight } from 'react-icons/fa';
+
+import send from './utils/send';
+import receive from './utils/receive';
 
 class Login extends Component {
   constructor(props) {
@@ -21,11 +25,7 @@ class Login extends Component {
   componentDidMount () {
     document.title = 'Sign In | Bryce St. Pierre';
 
-    fetch('/api/authenticate', {  
-      credentials: 'include'
-    })
-    .then(res => res.json())
-    .then(user => {
+    receive('/api/authenticate', user => {
       this.setState({ redirect: user ? true : false });
     });
   }
@@ -37,28 +37,40 @@ class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch('/api/authenticate', {
-      method: 'post',
-      body: JSON.stringify({
-        username: 'owner',
-        password: this.state.password
-      }),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include'
-    })
-    .then(res => {
-      if (res.status === 401) 
-        return null;
-      return res.json();
-    })
-    .then(user => {
+    send('/api/authenticate', {
+      username: 'owner',
+      password: this.state.password
+    }, user => {
       if (user)
         this.props.onSignIn(user);
       this.setState({
         error: user ? '' : 'Incorrect password. Please try again.',
         redirect: user ? true : false
       });
-    })
+    });
+
+    // fetch('/api/authenticate', {
+    //   method: 'post',
+    //   body: JSON.stringify({
+    //     username: 'owner',
+    //     password: this.state.password
+    //   }),
+    //   headers: { 'Content-Type': 'application/json' },
+    //   credentials: 'include'
+    // })
+    // .then(res => {
+    //   if (res.status === 401) 
+    //     return null;
+    //   return res.json();
+    // })
+    // .then(user => {
+    //   if (user)
+    //     this.props.onSignIn(user);
+    //   this.setState({
+    //     error: user ? '' : 'Incorrect password. Please try again.',
+    //     redirect: user ? true : false
+    //   });
+    // })
   }
 
   render () {
