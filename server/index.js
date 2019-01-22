@@ -14,7 +14,7 @@ let backend = express();
 backend.use(cookieParser());
 backend.use(bodyParser.json());
 backend.use(bodyParser.urlencoded({ extended: true }));
-backend.use(session({ secret: 'f9mn6lsawn4ifghohk321', resave: false, saveUninitialized: false }));
+backend.use(session({ secret: 'c4D0poBZVNQ12v9pwOYk', resave: false, saveUninitialized: false }));
 
 backend.use(passport.initialize());
 backend.use(passport.session());

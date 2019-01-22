@@ -1,2 +1,3 @@
 CREATE SCHEMA app;
 CREATE SCHEMA meta;
+CREATE SCHEMA integration;

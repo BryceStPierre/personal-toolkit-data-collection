@@ -7,20 +7,23 @@ let Users = require('./models/Users');
 passport.use(new Strategy(
   { usernameField: 'username', passwordField: 'password' }, 
   (username, password, done) => {
-    Users.retrieveByUsername(username, (user) => {
+    Users.retrieveByUsername(username, user => {
       if (user.message)
         return done(null, false);
   
       bcrypt.compare(password, user.password, (err, res) => {
         if (res) {
-          return done(null, {
-            id: user.id,
-            lastLogin: user.last_login,
-            displayNameLong: user.display_name_long,
-            displayNameShort: user.display_name_short
+          Users.update(username, res => {
+            return done(null, {
+              id: user.id,
+              lastLogin: user.last_login,
+              displayNameLong: user.display_name_long,
+              displayNameShort: user.display_name_short
+            });
           });
-        } else
+        } else {
           return done(null, false);
+        }
       });
     });
   }
