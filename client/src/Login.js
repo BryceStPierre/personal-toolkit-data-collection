@@ -13,13 +13,13 @@ import receive from './utils/receive';
 
 class Login extends Component {
   constructor(props) {
-    super(props)
+    super(props);
   
     this.state = {
       error: '',
       password: '',
       redirect: false,
-    }
+    };
   }
   
   componentDidMount () {
@@ -48,29 +48,6 @@ class Login extends Component {
         redirect: user ? true : false
       });
     });
-
-    // fetch('/api/authenticate', {
-    //   method: 'post',
-    //   body: JSON.stringify({
-    //     username: 'owner',
-    //     password: this.state.password
-    //   }),
-    //   headers: { 'Content-Type': 'application/json' },
-    //   credentials: 'include'
-    // })
-    // .then(res => {
-    //   if (res.status === 401) 
-    //     return null;
-    //   return res.json();
-    // })
-    // .then(user => {
-    //   if (user)
-    //     this.props.onSignIn(user);
-    //   this.setState({
-    //     error: user ? '' : 'Incorrect password. Please try again.',
-    //     redirect: user ? true : false
-    //   });
-    // })
   }
 
   render () {
