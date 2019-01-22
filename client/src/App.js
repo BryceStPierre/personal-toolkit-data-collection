@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -13,33 +14,7 @@ import Collection from './Collection';
 import NotFound from './NotFound';
 import Footer from './Footer';
 
-// const auth = {
-//   isAuthenticated: false,
-//   signIn (d) {
-//     this.isAuthenticated = true;
-//   },
-//   signOut (d) {
-//     this.isAuthenticated = false;
-//   }
-// }
-
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-//   <Route 
-//     {...rest}
-//     render={props => 
-//       auth.isAuthenticated ? (
-//         <Component {...props} />
-//       ) : (
-//         <Redirect
-//           to={{
-//             pathname: '/',
-//             state: { from: props.location }
-//           }}
-//         />
-//       )
-//     }
-//   />
-// );
+import receive from './utils/receive';
 
 class App extends Component {
   constructor(props) {
@@ -57,11 +32,7 @@ class App extends Component {
   }
 
   getSignIn = () => {
-    fetch('/api/authenticate', { 
-      credentials: 'include' 
-    })
-    .then(res => res.json())
-    .then(user => {
+    receive('/api/authenticate', user => {
       this.handleSignIn(user);
     });
   }

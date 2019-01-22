@@ -4,6 +4,7 @@ import {
   Container, Row, Col, Button, 
   Form, FormGroup, Label, Input
 } from 'reactstrap';
+
 import { 
   FaMicrophoneAlt, FaPlus, FaPaperPlane
 } from 'react-icons/fa';
@@ -12,17 +13,7 @@ import MetaEntryCreate from './MetaEntryCreate';
 import MetaEntrySelect from './MetaEntrySelect';
 
 import receive from './utils/receive';
-
-// const fakeDoms = [
-//   { label: 'DLabel1', value: 1 },
-//   { label: 'DLabel2', value: 2 },
-//   { label: 'DLabel3', value: 3 }
-// ];
-// const fakeCats = [
-//   { label: 'CLabel1', value: 1 },
-//   { label: 'CLabel2', value: 2 },
-//   { label: 'CLabel3', value: 3 }
-// ]
+import send from './utils/send';
 
 const defaultState = {
   data: '',
@@ -84,7 +75,11 @@ class Collection extends Component {
     let flags = Object.assign({}, this.state.flags);
     flags[e.target.value] = false;
 
-
+    send('/api/domain', {
+      domain: this.state.newDomain
+    }, res => {
+      console.log(res);
+    });
 
     this.setState({
       flags: flags
@@ -134,7 +129,7 @@ class Collection extends Component {
           </Col>
         </Row>
         <Row className={'justify-content-center'}>
-          <Col sm={8}>
+          <Col sm={10}>
             <Form onSubmit={this.handleSubmitData}>
             
               { !newDomain && <MetaEntrySelect 

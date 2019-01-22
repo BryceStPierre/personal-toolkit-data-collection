@@ -2,7 +2,7 @@ let db = require('../database');
 
 class Domain {
   static create (domain, callback) {
-
+    
   }
   
   static retrieveAll (callback) {

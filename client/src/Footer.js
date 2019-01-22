@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { Container, Row, Col } from 'reactstrap';
+
 import { FaHeart } from "react-icons/fa";
+
 import bryce from './bryce.png';
 
 const Footer = (props) => {
