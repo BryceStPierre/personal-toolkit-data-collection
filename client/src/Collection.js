@@ -65,6 +65,12 @@ class Collection extends Component {
     });
   }
 
+  getCategoriesList = (domain) => {
+    receive(`/api/category/${domain}`, res => {
+      this.setState({ categoriesList: res })
+    });
+  }
+
   handleNewEntryToggle = (e) => {
     let flags = Object.assign({}, this.state.flags);
     flags[e.target.value] = true;
@@ -75,15 +81,26 @@ class Collection extends Component {
     let flags = Object.assign({}, this.state.flags);
     flags[e.target.value] = false;
 
-    send('/api/domain', {
-      domain: this.state.newDomain
-    }, res => {
-      console.log(res);
-    });
-
-    this.setState({
-      flags: flags
-    });
+    if (e.target.value === 'newDomain') {
+      send('/api/domain', {
+        domain: this.state.newDomain
+      }, res => {
+        this.getDomainsList();
+        this.setState({
+          flags: flags
+        });
+      });
+    } else if (e.target.value === 'newCategory') {
+      send('/api/category', {
+        domain: this.state.domain,
+        categoryLabel: this.state.newCategory
+      }, res => {
+        this.getCategoriesList(this.state.domain);
+        this.setState({
+          flags: flags
+        });
+      });
+    }
   }
 
   handleNewEntryCancel = (e) => {

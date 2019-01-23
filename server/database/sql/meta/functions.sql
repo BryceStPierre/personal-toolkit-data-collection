@@ -8,7 +8,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
   RETURN QUERY 
-    SELECT * FROM meta.domains ORDER BY label ASC;
+    SELECT id, domain_label FROM meta.domains ORDER BY domain_label ASC;
 END; 
 $$ LANGUAGE 'plpgsql'
 
@@ -24,8 +24,8 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
   RETURN QUERY 
-    SELECT id, label FROM meta.categories 
+    SELECT id, category_label FROM meta.categories 
       WHERE domain_id = domain 
-      ORDER BY label ASC;
+      ORDER BY category_label ASC;
 END; 
 $$ LANGUAGE 'plpgsql'

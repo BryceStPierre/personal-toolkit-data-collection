@@ -36,7 +36,7 @@ class Database {
           console.error('Error', err.stack);
           return callback({ message: 'Error: querying database.' }, null);
         }
-        callback(null, res.rows.length > 0 ? res.rows : null);
+        callback(null, res.rows);
       });
     });
   }
