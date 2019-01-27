@@ -17,7 +17,7 @@ class MetaEntrySelect extends Component {
           <option key={0} value={0}>
             { list.length === 0 ? `No ${plural} created yet.` : `Select a ${singular}.` }
           </option>
-          { list.map(i => (<option key={i.value} value={i.value}>{i.label}</option>)) }
+          { list.map(i => (<option key={i.value} value={i.value}>{i.text}</option>)) }
         </Input>
       </FormGroup>
     );

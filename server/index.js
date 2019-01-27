@@ -22,6 +22,7 @@ backend.use(passport.session());
 backend.use('/api/authenticate', require('./api/authenticate')(passport));
 backend.use('/api/category', require('./api/category'));
 backend.use('/api/domain', require('./api/domain'));
+backend.use('/api/data', require('./api/data'));
 
 if (ENV === 'production') {
   backend.use(express.static(path.join(__dirname, '../client/build')));
@@ -30,14 +31,16 @@ if (ENV === 'production') {
   });
 } else if (ENV === 'development') {
   db.query('SELECT NOW()', (err, res) => {
-    if (err)
+    if (err) {
+      console.log('PostgreSQL connection error. You might want to check this.');
       return;
+    }
     console.log(`PostgreSQL connected: ${res[0].now}.`);
   });
 }
 
 backend.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}!`);
+  console.log(`Server listening on port ${PORT}.`);
 });
 
 module.exports = backend;

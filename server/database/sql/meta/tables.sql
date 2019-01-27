@@ -1,16 +1,25 @@
-DROP TABLE meta.domains;
-CREATE TABLE meta.domains (
-  id SERIAL PRIMARY KEY NOT NULL,
-  domain_label VARCHAR(75) NOT NULL,
-	created TIMESTAMP DEFAULT clock_timestamp(),
-  updated TIMESTAMP DEFAULT clock_timestamp()
+CREATE TABLE meta.users (
+	id SERIAL PRIMARY KEY NOT NULL,
+	username VARCHAR(10) NOT NULL,
+	password VARCHAR(100) NOT NULL,
+	display_name_long VARCHAR(100) NOT NULL,
+  display_name_short VARCHAR(100) NOT NULL,
+  last_login TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp(),
+	created TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp()
 );
 
-DROP TABLE meta.categories;
+CREATE TABLE meta.domains (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(75) NOT NULL,
+  label VARCHAR(75) NOT NULL,
+  updated TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp(),
+	created TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp()
+);
+
 CREATE TABLE meta.categories (
   id SERIAL PRIMARY KEY NOT NULL,
-  category_label VARCHAR(75) NOT NULL,
+  label VARCHAR(75) NOT NULL,
   domain_id INT NOT NULL,
-  created TIMESTAMP DEFAULT clock_timestamp(),
-  updated TIMESTAMP DEFAULT clock_timestamp()
+  updated TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp(),
+	created TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp()
 );

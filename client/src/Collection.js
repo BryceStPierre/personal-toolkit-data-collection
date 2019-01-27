@@ -17,7 +17,7 @@ import send from './utils/send';
 
 const defaultState = {
   data: '',
-  stage: 0,
+  stage: 2,
   domain: 0,
   category: 0,
   newDomain: '',
@@ -33,41 +33,23 @@ const defaultState = {
 class Collection extends Component {
   constructor(props) {
     super(props);
-  
     this.state = defaultState;
   }
   
   componentDidMount () {
     document.title = 'Data Collection | Bryce St. Pierre';
-
     this.getDomainsList();
-
-    // this.setState({
-    //   // listOfDomains: fakeDoms,
-    //   // listOfCategories: fakeCats
-    // });
   }
 
   getDomainsList = () => {
-
-    // fetch('/api/domain', {
-    //   //credentials: 'include',
-    //   //headers: { 'Content-Type': 'application/json' }
-    // })
-    // .then(res => res.json())
-    // .then(res => {
-    //   console.log(res);
-    //   this.setState({ domainsList: res });
-    // });
-
-    receive('/api/domain', res => {
-      this.setState({ domainsList: res });
+    receive('/api/domain', list => {
+      this.setState({ domainsList: list });
     });
   }
 
   getCategoriesList = (domain) => {
-    receive(`/api/category/${domain}`, res => {
-      this.setState({ categoriesList: res })
+    receive(`/api/category/${domain}`, list => {
+      this.setState({ categoriesList: list });
     });
   }
 
@@ -80,15 +62,14 @@ class Collection extends Component {
   handleNewEntrySubmit = (e) => {
     let flags = Object.assign({}, this.state.flags);
     flags[e.target.value] = false;
+    let name = e.target.value;
 
     if (e.target.value === 'newDomain') {
       send('/api/domain', {
         domain: this.state.newDomain
       }, res => {
         this.getDomainsList();
-        this.setState({
-          flags: flags
-        });
+        this.resetNewEntry(name, flags);
       });
     } else if (e.target.value === 'newCategory') {
       send('/api/category', {
@@ -96,9 +77,7 @@ class Collection extends Component {
         categoryLabel: this.state.newCategory
       }, res => {
         this.getCategoriesList(this.state.domain);
-        this.setState({
-          flags: flags
-        });
+        this.resetNewEntry(name, flags);
       });
     }
   }
@@ -107,8 +86,12 @@ class Collection extends Component {
     let flags = Object.assign({}, this.state.flags);
     flags[e.target.value] = false;
 
+    this.resetNewEntry(e.target.value, flags);
+  }
+
+  resetNewEntry = (name, flags) => {
     this.setState({
-      [e.target.value]: '',
+      [name]: '',
       flags: flags
     });
   }
@@ -121,7 +104,6 @@ class Collection extends Component {
 
   handleMetaChange = (e) => {
     this.setState({
-      stage: e.target.value,
       [e.target.name]: e.target.value
     });
   }
@@ -133,6 +115,14 @@ class Collection extends Component {
   handleSubmitData = (e) => {
     e.preventDefault();
 
+    send('/api/data', {
+      domain: this.state.domain,
+      category: this.state.category,
+      data: this.state.data
+    }, res => {
+      console.log(res);
+      this.setState(defaultState);
+    });
   };
 
   render () {
@@ -146,10 +136,9 @@ class Collection extends Component {
           </Col>
         </Row>
         <Row className={'justify-content-center'}>
-          <Col sm={10}>
+          <Col sm={10} md={10} lg={10} xl={8}>
             <Form onSubmit={this.handleSubmitData}>
-            
-              { !newDomain && <MetaEntrySelect 
+              { !newDomain && <MetaEntrySelect
                 name='domain'
                 label='Domain'
                 singular='domain'
@@ -222,7 +211,6 @@ class Collection extends Component {
                 <Button color='danger' onClick={this.handleRecord}>Record&ensp;<FaMicrophoneAlt /></Button>{' '}
                 <Button color='success' type='submit'>Submit&ensp;<FaPaperPlane /></Button>
               </FormGroup> }
-
             </Form>
           </Col>
         </Row>

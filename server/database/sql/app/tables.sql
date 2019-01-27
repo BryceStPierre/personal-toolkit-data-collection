@@ -1,11 +1,7 @@
-DROP TABLE app.users;
-
-CREATE TABLE app.users (
-	id SERIAL PRIMARY KEY NOT NULL,
-	username VARCHAR(10) NOT NULL,
-	password VARCHAR(100) NOT NULL,
-	display_name_long VARCHAR(100) NOT NULL,
-  display_name_short VARCHAR(100) NOT NULL,
-  last_login TIMESTAMP DEFAULT clock_timestamp(),
-	created TIMESTAMP DEFAULT clock_timestamp()
+CREATE TABLE app.sample_table (
+  id SERIAL PRIMARY KEY NOT NULL,
+  value VARCHAR(150) NULL,
+  category INT NOT NULL,
+  updated TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp(),
+	created TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp()
 );
