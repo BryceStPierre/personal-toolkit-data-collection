@@ -11,5 +11,6 @@ DECLARE
   table_name TEXT;
 BEGIN
   SELECT name INTO table_name FROM meta.domains WHERE id = domain_id;
+  EXECUTE 'INSERT INTO app.' || table_name || ' (value, category) VALUES (''' || value_data || ''', ' || category_id || ')';
 END; 
 $$ LANGUAGE 'plpgsql';
