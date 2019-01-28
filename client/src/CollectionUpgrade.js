@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 
 import { 
-  FaMicrophoneAlt, FaPlus, FaPaperPlane
+  FaMicrophoneAlt, FaPlus, FaPaperPlane, FaUpload
 } from 'react-icons/fa';
 
 import MetaEntryCreate from './MetaEntryCreate';
@@ -15,22 +15,23 @@ import MetaEntrySelect from './MetaEntrySelect';
 import receive from './utils/receive';
 import send from './utils/send';
 
+const defaultFlags = {
+  newDomain: false,
+  newCategory: false
+}
+
 const defaultState = {
   data: '',
-  stage: 2,
   domain: 0,
   category: 0,
   newDomain: '',
   newCategory: '',
   domainsList: [],
   categoriesList: [],  
-  flags: {
-    newDomain: false,
-    newCategory: false
-  }
+  flags: defaultFlags
 };
 
-class Collection extends Component {
+class CollectionUpgrade extends Component {
   constructor(props) {
     super(props);
     this.state = defaultState;
@@ -38,7 +39,7 @@ class Collection extends Component {
   
   componentDidMount () {
     document.title = 'Data Collection | Bryce St. Pierre';
-    this.getDomainsList();
+    //this.getDomainsList();
   }
 
   getDomainsList = () => {
@@ -59,7 +60,7 @@ class Collection extends Component {
     this.setState({ flags });
   }
 
-  handleNewEntrySubmit = (e) => {
+  handleNewEntryCreate = (e) => {
     let flags = Object.assign({}, this.state.flags);
     flags[e.target.value] = false;
     let name = e.target.value;
@@ -84,9 +85,14 @@ class Collection extends Component {
 
   handleNewEntryCancel = (e) => {
     let flags = Object.assign({}, this.state.flags);
-    flags[e.target.value] = false;
-    this.resetNewEntry(e.target.value, flags);
+    flags[e.target.name] = false;
+    this.resetNewEntry(e.target.name, flags);
   }
+
+  resetFlags = () => {
+    this.setState({ flags: defaultFlags });
+  }
+
 
   resetNewEntry = (name, flags) => {
     this.setState({
@@ -135,81 +141,83 @@ class Collection extends Component {
           </Col>
         </Row>
         <Row className={'justify-content-center'}>
-          <Col xs={12} sm={12} md={10} lg={10} xl={8}>
+          <Col sm={12} md={8} lg={8} xl={6}>
             <Form onSubmit={this.handleSubmitData}>
               { !newDomain && <MetaEntrySelect
                 name='domain'
                 label='Domain'
-                singular='domain'
-                plural='domains'
+                newEntryValue='newDomain'
+                noRows='No domains created yet.'
                 list={this.state.domainsList}
-                onMetaChange={this.handleMetaChange} /> }
+                onMetaChange={this.handleMetaChange}
+                onNewEntryToggle={this.handleNewEntryToggle} /> }
 
-              { !newDomain && <FormGroup className={'text-center'}>
+              {/* { !newDomain && <FormGroup className={'text-center'}>
                 <Button 
                   color='primary' 
                   value='newDomain' 
                   onClick={this.handleNewEntryToggle}>
-                  New Domain&ensp;<FaPlus />
+                  New&ensp;<FaPlus />
                 </Button>
-              </FormGroup> }
+              </FormGroup> } */}
 
               { newDomain && <MetaEntryCreate
                   name='newDomain'
-                  value={this.state.newDomain}
                   label='New Domain'
-                  placeholder='New domain, topic, data of interest...'
+                  placeholder='New domain name...'
+                  value={this.state.newDomain}
                   onRecord={this.handleRecord}
-                  onCreate={this.handleNewEntrySubmit}
+                  onCreate={this.handleNewEntryCreate}
                   onCancel={this.handleNewEntryCancel}
                   onInputChange={this.handleInputChange}>
                 <FaMicrophoneAlt />
               </MetaEntryCreate> }
-
-              { this.state.stage > 0 && !newCategory && <MetaEntrySelect 
+            
+              { !newCategory && <MetaEntrySelect 
                 name='category'
                 label='Category'
-                singular='category'
-                plural='categories'
+                newEntryValue='newCategory'
+                noRows='No categories created yet.'
                 list={this.state.categoriesList}
-                onMetaChange={this.handleMetaChange} /> }
+                onMetaChange={this.handleMetaChange}
+                onNewEntryToggle={this.handleNewEntryToggle} /> }
 
-              { this.state.stage > 0 && !newCategory && <FormGroup className={'text-center'}>
+              {/* { !newCategory && <FormGroup className={'text-center'}>
                 <Button 
                   color='primary' 
                   value='newCategory' 
                   onClick={this.handleNewEntryToggle}>
-                  New Category&ensp;<FaPlus />
+                  New&ensp;<FaPlus />
                 </Button>
-              </FormGroup> }
+              </FormGroup> } */}
 
               { newCategory && <MetaEntryCreate
                   name='newCategory'
-                  value={this.state.newCategory}
                   label='New Category'
-                  placeholder='New category, classification, grouping...'
+                  placeholder='New category...'
+                  value={this.state.newCategory}
                   onRecord={this.handleRecord}
-                  onCreate={this.handleNewEntrySubmit}
+                  onCreate={this.handleNewEntryCreate}
                   onCancel={this.handleNewEntryCancel}
                   onInputChange={this.handleInputChange}>
                 <FaMicrophoneAlt />
               </MetaEntryCreate> }
 
-              { this.state.stage > 0 && <FormGroup>
-                <Label for='data'>Data</Label>
+              <FormGroup>
+                <Label for='data'>Data &emsp;
+                  <Button size='sm' color='danger'>Record&ensp;<FaMicrophoneAlt /></Button>
+                </Label>
                 <Input 
                   id='data' 
                   name='data' 
                   type='textarea'
                   value={this.state.data} 
-                  onChange={this.handleInputChange}
-                  placeholder='Text, description, information...' />
-              </FormGroup> }
+                  onChange={this.handleInputChange} />
+              </FormGroup>
 
-              { this.state.stage > 0 && <FormGroup className={'text-center'}>
-                <Button color='danger' onClick={this.handleRecord}>Record&ensp;<FaMicrophoneAlt /></Button>{' '}
-                <Button color='success' type='submit'>Submit&ensp;<FaPaperPlane /></Button>
-              </FormGroup> }
+              <FormGroup className={'text-center'}>{' '}
+                <Button color='success' type='submit'>Insert&ensp;<FaUpload /></Button>
+              </FormGroup>
             </Form>
           </Col>
         </Row>
@@ -218,4 +226,4 @@ class Collection extends Component {
   }
 }
 
-export default Collection;
+export default CollectionUpgrade;

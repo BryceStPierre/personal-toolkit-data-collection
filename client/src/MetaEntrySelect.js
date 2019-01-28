@@ -1,27 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import { FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input, Button } from 'reactstrap';
 
-class MetaEntrySelect extends Component {
-  render() {
-    const { name, label, list, plural, singular } = this.props;
+import MetaEntryOption from './MetaEntryOption';
 
-    return (
-      <FormGroup>
-        <Label for={name}>{label}</Label>
-        <Input 
-          type='select' 
-          id={name} 
-          name={name} 
-          onChange={this.props.onMetaChange}>
-          <option key={0} value={0}>
-            { list.length === 0 ? `No ${plural} created yet.` : `Select a ${singular}.` }
-          </option>
-          { list.map(i => (<option key={i.value} value={i.value}>{i.text}</option>)) }
-        </Input>
-      </FormGroup>
-    );
-  }
-}
+import { 
+  FaMicrophoneAlt, FaPlus, FaPaperPlane
+} from 'react-icons/fa';
+
+const MetaEntrySelect = (props) => (
+  <FormGroup>
+    <Label for={props.name}>{props.label} &emsp;
+      <Button
+        size='sm'
+        color='primary' 
+        value={props.newEntryValue}
+        onClick={props.onNewEntryToggle}>
+        New&ensp;<FaPlus />
+      </Button>
+    </Label>
+    <Input
+      type='select' 
+      id={props.name} 
+      name={props.name} 
+      onChange={props.onChange}>
+      { props.list.length === 0 && <MetaEntryOption value={0} label={props.noRows} /> }
+      { props.list.map(i => <MetaEntryOption value={i.value} label={i.text}/>) }
+    </Input>
+  </FormGroup>
+);
 
 export default MetaEntrySelect;

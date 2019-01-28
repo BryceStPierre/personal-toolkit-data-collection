@@ -3,23 +3,23 @@ let router = express.Router();
 
 let Data = require('../models/Data');
 
-router.get('/', (req, res) => {
-  // if (!req.user)
-  //   return res.json({ code: 401, message: 'Unauthorized access of API.' });
+// router.get('/', (req, res) => {
+//   // if (!req.user)
+//   //   return res.json({ code: 401, message: 'Unauthorized access of API.' });
   
-  // Domain.retrieveAll(domainsList => {
-  //   res.json(domainsList);
-  // });
-});
+//   // Domain.retrieveAll(domainsList => {
+//   //   res.json(domainsList);
+//   // });
+// });
 
 router.post('/', (req, res) => {
-  // if (!req.user)
-  //   return res.json({ code: 401, message: 'Unauthorized access of API.' });
+  if (!req.user)
+    return res.json({ code: 401, message: 'Unauthorized access of API.' });
   
-  // Domain.create(req.body.domain, domain => {
-  //   console.log(domain);
-  //   res.json(domain);
-  // });
+  Data.create(req.body.domain, req.body.category, req.body.value, data => {
+    console.log(data);
+    res.json(data);
+  });
 });
 
 module.exports = router;

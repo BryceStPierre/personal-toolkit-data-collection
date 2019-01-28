@@ -28,5 +28,14 @@
 }
 
 #data {
-  height: 80px;
+  height: 70px;
 }
+
+/* .btn-sm {
+  padding: .15rem .5rem;
+  font-size: .8rem;
+}
+*/
+.form-group {
+  margin-bottom: 2rem;
+} 

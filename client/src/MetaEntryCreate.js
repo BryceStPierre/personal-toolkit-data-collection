@@ -20,32 +20,35 @@ class MetaEntryCreate extends Component {
               id={name}
               name={name}
               value={value} 
+              autoComplete='off'
               placeholder={placeholder} 
               onChange={this.props.onInputChange} />
             <InputGroupAddon addonType='append'>
               <Button 
-                color='danger' 
+                color='primary' 
                 value={name} 
                 onClick={this.props.onRecord} >
                 {this.props.children}
               </Button>
             </InputGroupAddon>
+            <InputGroupAddon addonType='append'>
+                <Button 
+                color='success' 
+                value={name} 
+                onClick={this.props.onCreate} >
+                <FaCheck />
+              </Button>
+            </InputGroupAddon>
+            <InputGroupAddon addonType='append'>
+                <Button 
+                color='danger' 
+                value={name} 
+                onClick={this.props.onCancel} >
+                <FaTimes />
+              </Button>
+            </InputGroupAddon>
           </InputGroup>
-        </FormGroup>
-        <FormGroup className={'text-center'} >
-          <Button 
-            color='success' 
-            value={name} 
-            onClick={this.props.onCreate} >
-            Create&ensp;<FaCheck />
-          </Button>
-          {' '}
-          <Button 
-            color='danger' 
-            value={name} 
-            onClick={this.props.onCancel} >
-            Cancel&ensp;<FaTimes />
-          </Button>
+
         </FormGroup>
       </div>
     )
