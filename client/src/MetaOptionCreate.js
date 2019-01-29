@@ -8,39 +8,51 @@ import {
 import { FaMicrophoneAlt, FaCheck, FaTimes } from 'react-icons/fa';
 
 class MetaOptionCreate extends Component {
+
+  handleChange = (e) => {
+    this.props.onChange(this.props.name, e.target.value);
+  }
+  
+  handleCreate = () => {
+    this.props.onCreate(this.props.name);
+  }
+
+  handleCancel = () => {
+    this.props.onCancel();
+  }
+
   render () {
+    const { name, label, value, placeholder } = this.props;
+
     return (
       <FormGroup>
-        <Label for={this.props.name}>{this.props.label}</Label>
+        <Label for={name}>{label}</Label>
         <InputGroup>
           <Input 
-            id={this.props.name}
+            id={name}
+            name={name}
+            value={value}
             autoComplete='off'
-            name={this.props.name}
-            value={this.props.value}
-            placeholder={this.props.placeholder} 
-            onChange={this.props.onInputChange} />
+            placeholder={placeholder} 
+            onChange={this.handleChange} />
           <InputGroupAddon addonType='append'>
-            <Button 
-              color='primary' 
-              value={this.props.name} 
-              onClick={this.props.onRecord}>
+            <Button color='primary'>
               <FaMicrophoneAlt />
             </Button>
           </InputGroupAddon>
           <InputGroupAddon addonType='append'>
             <Button 
               color='success' 
-              value={this.props.name} 
-              onClick={this.props.onCreate}>
+              //value={this.props.name} 
+              onClick={this.handleCreate}>
               <FaCheck />
             </Button>
           </InputGroupAddon>
           <InputGroupAddon addonType='append'>
             <Button 
               color='danger' 
-              value={this.props.name} 
-              onClick={this.props.onCancel}>
+              //value={this.props.name} 
+              onClick={this.handleCancel}>
               <FaTimes />
             </Button>
           </InputGroupAddon>

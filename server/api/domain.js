@@ -7,8 +7,8 @@ router.get('/', (req, res) => {
   if (!req.user)
     return res.json({ code: 401, message: 'Unauthorized access of API.' });
   
-  Domain.retrieveAll(domainsList => {
-    res.json(domainsList);
+  Domain.retrieveAll(domainList => {
+    res.json(domainList);
   });
 });
 
@@ -16,9 +16,9 @@ router.post('/', (req, res) => {
   if (!req.user)
     return res.json({ code: 401, message: 'Unauthorized access of API.' });
   
-  Domain.create(req.body.domain, domain => {
-    console.log(domain);
-    res.json(domain);
+  Domain.create(req.body.domain, domainList => {
+    console.log(domainList);
+    res.json(domainList);
   });
 });
 

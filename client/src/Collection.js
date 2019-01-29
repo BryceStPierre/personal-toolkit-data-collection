@@ -13,116 +13,56 @@ import MetaOptionSelect from './MetaOptionSelect';
 import receive from './utils/receive';
 import send from './utils/send';
 
-const defaultFlags = {
-  newDomain: false,
-  newCategory: false
-}
-
-const defaultState = {
-  data: '',
-  domain: 0,
-  category: 0,
-  newDomain: '',
-  newCategory: '',
-  domainsList: [],
-  categoriesList: [],  
-  flags: {
-    newDomain: false,
-    newCategory: false
-  }
-};
-
 class Collection extends Component {
   constructor(props) {
     super(props);
-    this.state = defaultState;
+    this.state = {
+      data: '',
+      domain: 0,
+      category: 0,
+      newDomain: '',
+      newCategory: '',
+      domainList: [],
+      categoryList: [],  
+      flags: {
+        newDomain: false,
+        newCategory: false
+      }
+    };
   }
   
   componentDidMount () {
     document.title = 'Data Collection | Bryce St. Pierre';
-    this.getDomainsList();
+    this.getDomainList();
   }
 
-  getDomainsList = () => {
+  getDomainList = () => {
     receive('/api/domain', list => {
-      this.setState({ domainsList: list });
+      this.setState({ domainList: list });
     });
   }
 
-  getCategoriesList = (domain) => {
+  getCategoryList = (domain) => {
     receive(`/api/category/${domain}`, list => {
-      this.setState({ categoriesList: list });
+      this.setState({ categoryList: list });
     });
   }
 
-  handleNewOptionToggle = (e) => {
-    let flags = Object.assign({}, defaultFlags);
-    flags[e.target.value] = true;
-    this.setState({ flags });
-  }
+  // handleNewCategoryCreate = () => {
+  //   send('/api/category', {
+  //     domain: this.state.domain,
+  //     categoryLabel: this.state.newCategory
+  //   }, res => {
+  //     this.setState({
+  //       newCategory: '',
+  //       flags: { newDomain: false, newCategory: false }
+  //     }, () => {
+  //       this.getCategoryList(this.state.domain);
+  //     });
+  //   });
+  // }
 
-  handleNewOptionCreate = (e) => {
-    if (e.target.value === 'newDomain') {
-      send('/api/domain', {
-        domain: this.state.newDomain
-      }, res => {
-        this.setState({
-          newDomain: '',
-          flags: defaultFlags
-        }, () => {
-          this.getDomainsList();
-        });
-      });
-    } else if (e.target.value === 'newCategory') {
-      send('/api/category', {
-        domain: this.state.domain,
-        categoryLabel: this.state.newCategory
-      }, res => {
-        this.setState({
-          newCategory: '',
-          flags: defaultFlags
-        }, () => {
-          this.getCategoriesList(this.state.domain);
-        });
-      });
-    }
-  }
-
-  handleNewDomainCreate = () => {
-
-  }
-
-  handleNewCategoryCreate = () => {
-
-  }
-
-  handleNewOptionCancel = (e) => {
-    this.setState({ 
-      [e.target.value]: '',
-      flags: defaultFlags 
-    });
-  }
-
-  handleInputChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
-
-  handleOptionChange = (e) => {
-    let name = e.target.name;
-    this.setState({
-      [name]: e.target.value
-    }, () => { 
-      if (name === 'newDomain')
-        this.getCategoriesList(this.state.domain);
-    });
-  }
-
-  handleRecord = (e) => {
-
-  };
-
+  
   handleSubmitData = (e) => {
     e.preventDefault();
 
@@ -132,11 +72,47 @@ class Collection extends Component {
       value: this.state.data
     }, res => {
       console.log(res.message);
-      this.setState(defaultState);
+      //this.setState(defaultState);
     });
   };
 
+  handleChange = (name, value) => {
+    this.setState({ [name]: value });
+  };
+
+  handleInput = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handleToggleNewOption = (flag) => {
+    let flags = { newDomain: false, newCategory: false };
+    flags[flag] = true;
+    this.setState({ flags });
+  };
+
+  handleCreateNewOption = (name) => {
+    send('/api/domain', {
+      domain: this.state.newDomain
+    }, list => {
+      this.setState({
+        newDomain: '',
+        domainList: list,
+        flags: { newDomain: false, newCategory: false }
+      });
+    });
+  };
+
+  handleCancelNewOption = () => {
+    this.setState({ 
+      newDomain: '',
+      newCategory: '',
+      flags: { newDomain: false, newCategory: false }
+    });
+  }
+
   render () {
+    const { flags } = this.state;
+    
     return (
       <Container className={'mt-4'}>
         <Row className={'mb-3'}>
@@ -148,35 +124,35 @@ class Collection extends Component {
           <Col sm={12} md={8} lg={8} xl={6}>
             <Form onSubmit={this.handleSubmitData}>
 
-              { !this.state.flags.newDomain && <MetaOptionSelect
+              { !flags.newDomain && <MetaOptionSelect
                   name='domain'
                   label='Domain'
-                  newOptionName='newDomain'
+                  flag='newDomain'
                   noRows='No domains created yet.'
-                  list={this.state.domainsList}
-                  onOptionChange={this.handleOptionChange}
-                  onNewOptionToggle={this.handleNewOptionToggle} /> }
+                  list={this.state.domainList}
+                  onChange={this.handleChange}
+                  onToggleNewOption={this.handleToggleNewOption} /> }
 
-              { this.state.flags.newDomain && <MetaOptionCreate
+              { flags.newDomain && <MetaOptionCreate
                   name='newDomain'
                   label='New Domain'
                   placeholder='New domain name...'
                   value={this.state.newDomain}
-                  onRecord={this.handleRecord}
-                  onCreate={this.handleNewOptionCreate}
-                  onCancel={this.handleNewOptionCancel}
-                  onInputChange={this.handleInputChange} /> }
+                  onChange={this.handleChange} 
+                  //onRecord={this.handleRecord}
+                  onCreate={this.handleCreateNewOption}
+                  onCancel={this.handleCancelNewOption} /> }
             
-              { !this.state.flags.newCategory && <MetaOptionSelect 
+              {/* { !flags.newCategory && <MetaOptionSelect 
                   name='category'
                   label='Category'
                   newOptionName='newCategory'
                   noRows='No categories created yet.'
-                  list={this.state.categoriesList}
+                  list={this.state.categoryList}
                   onOptionChange={this.handleOptionChange}
                   onNewOptionToggle={this.handleNewOptionToggle} /> }
 
-              { this.state.flags.newCategory && <MetaOptionCreate
+              { flags.newCategory && <MetaOptionCreate
                   name='newCategory'
                   label='New Category'
                   placeholder='New category...'
@@ -184,15 +160,13 @@ class Collection extends Component {
                   onRecord={this.handleRecord}
                   onCreate={this.handleNewOptionCreate}
                   onCancel={this.handleNewOptionCancel}
-                  onInputChange={this.handleInputChange} /> }
+                  onInputChange={this.handleInputChange} /> } */}
 
               <FormGroup>
                 <Label for='data'>Data &emsp;
                   <Button 
                     size='sm'
-                    value='data'
-                    color='danger'
-                    onClick={this.handleRecord}>
+                    color='danger'>
                     Record&ensp;<FaMicrophoneAlt />
                   </Button>
                 </Label>
@@ -201,7 +175,7 @@ class Collection extends Component {
                   name='data' 
                   type='textarea'
                   value={this.state.data} 
-                  onChange={this.handleInputChange} 
+                  onChange={this.handleInput} 
                   placeholder='Press "Record" or type value...' />
               </FormGroup>
 

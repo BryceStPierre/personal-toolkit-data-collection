@@ -2,12 +2,12 @@ let db = require('../database');
 
 class Domain {
   static create (domainLabel, callback) {
-    db.query('SELECT * FROM integration.create_domain($1, $2) AS value', 
+    db.query('SELECT * FROM integration.create_domain($1, $2)', 
     [domainLabel.toLowerCase().replace(/ /g, '_'), domainLabel],
     (err, rows) => {
       if (err)
         return callback(err);
-      callback(rows && rows.length > 0 ? rows[0] : null);
+      callback(rows ? rows : null);
     });
   }
   

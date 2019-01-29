@@ -5,9 +5,10 @@ CREATE OR REPLACE FUNCTION integration.create_domain (
   domain_name TEXT,
   domain_label TEXT
 )
-RETURNS INT AS $$
-DECLARE
-  created_id INT;
+RETURNS TABLE (
+  value INT,
+  text VARCHAR
+) AS $$
 BEGIN
   EXECUTE 'CREATE TABLE app.' || domain_name || '(
     id SERIAL PRIMARY KEY NOT NULL,
@@ -18,8 +19,10 @@ BEGIN
   )';
 
   INSERT INTO meta.domains (name, label) VALUES (domain_name, domain_label);
-  SELECT id INTO created_id FROM meta.domains WHERE name = domain_name;
-  RETURN created_id;
+  
+  RETURN QUERY 
+    SELECT id, label FROM meta.domains 
+      ORDER BY label ASC;
 END; 
 $$ LANGUAGE 'plpgsql';
 
