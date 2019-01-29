@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
 import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch
+  BrowserRouter as Router, Route, Redirect, Switch
 } from 'react-router-dom';
 
 import Navigation from './Navigation';
@@ -15,7 +12,6 @@ import NotFound from './NotFound';
 import Footer from './Footer';
 
 import receive from './utils/receive';
-import CollectionUpgrade from './CollectionUpgrade';
 
 class App extends Component {
   constructor(props) {
@@ -39,7 +35,6 @@ class App extends Component {
   }
 
   handleSignIn = (user) => {
-    console.log(user);
     this.setState({
       user: user,
       isSignedIn: user ? true : false
@@ -58,10 +53,9 @@ class App extends Component {
           <Switch>
             <Route path='/' exact render={props => <Login {...props} onSignIn={this.handleSignIn} />} />
             <Route path='/about' component={About} />
-            {/* { this.state.isSignedIn 
+            { this.state.isSignedIn 
               ? <Route path='/collection' component={Collection} /> 
-              : <Redirect to={{ pathname: '/', state: { from: this.props.location } }} /> } */}
-            <Route path='/collection' component={CollectionUpgrade} />  
+              : <Redirect to={{ pathname: '/', state: { from: this.props.location } }} /> }
             <Route component={NotFound} />
           </Switch>
           <Footer user={this.state.user}/>

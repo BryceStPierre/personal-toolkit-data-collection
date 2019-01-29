@@ -10,7 +10,7 @@ const Footer = (props) => (
   <Container fluid className={'mt-4 bg-light'}>
     { props.user && <Row>
       <Col className={'text-center mt-4'}>
-        <p id='user-display'>
+        <p className={'text-small mb-0'}>
           Signed in as {props.user.displayNameShort}.<br/>Last login: {new Date(props.user.lastLogin).toLocaleString()}.
         </p>
       </Col>

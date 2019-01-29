@@ -1,3 +1,15 @@
+textarea {
+  height: 70px;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+} 
+
+.bg-light {
+  background-color: #fff!important;
+}
+
 .branding {
   margin-right: 0.75rem;
   margin-top: -0.25rem;
@@ -14,28 +26,10 @@
   color: #dc3545;
 }
 
-.navbar-toggler {
-  border: none;
-}
-
-.bg-light {
-  background-color: #fff!important;
-}
-
-#user-display {
-  margin-bottom: 0;
+.text-small {
   font-size: 12px;
 }
 
-#data {
-  height: 70px;
+.navbar-toggler {
+  border: none;
 }
-
-/* .btn-sm {
-  padding: .15rem .5rem;
-  font-size: .8rem;
-}
-*/
-.form-group {
-  margin-bottom: 2rem;
-} 
