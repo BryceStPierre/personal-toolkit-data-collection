@@ -33,8 +33,16 @@ CREATE OR REPLACE FUNCTION integration.create_category (
   category_domain INT,
   category_label TEXT
 )
-RETURNS VOID AS $$
+RETURNS TABLE (
+  value INT,
+  text VARCHAR
+) AS $$
 BEGIN
   INSERT INTO meta.categories (label, domain_id) VALUES (category_label, category_domain);
+
+  RETURN QUERY 
+    SELECT id, label FROM meta.categories 
+      WHERE domain_id = category_domain
+      ORDER BY label ASC;
 END; 
 $$ LANGUAGE 'plpgsql';

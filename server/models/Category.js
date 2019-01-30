@@ -5,7 +5,7 @@ class Category {
     db.query('SELECT * FROM integration.create_category($1, $2)', [domain, categoryLabel], (err, rows) => {
       if (err)
         return callback(err);
-      callback(rows && rows.length > 0 ? rows[0] : null);
+      callback(rows ? rows : null);
     });
   }
   
