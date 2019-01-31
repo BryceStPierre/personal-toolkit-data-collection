@@ -55,7 +55,7 @@ class Login extends Component {
       return <Redirect to='/collection' />;
 
     return (
-      <Container className={'mt-4'}>
+      <Container className={'mt-4 mb-4'}>
         <Row className={'justify-content-center'}>
           <Col xs={9} sm={6} md={6}>
             <h3 className={'mb-3'}>Sign In</h3>

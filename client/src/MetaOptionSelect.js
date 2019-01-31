@@ -20,7 +20,7 @@ class MetaOptionSelect extends Component {
     const { name, label, noRows, list } = this.props;
 
     return (
-      <FormGroup>
+      <FormGroup className={'mb-4'}>
         <Label for={name}>{label} &emsp;
           <Button
             size='sm'

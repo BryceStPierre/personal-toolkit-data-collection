@@ -6,18 +6,10 @@ class Data {
     [domain, category, value],
     (err, rows) => {
       if (err)
-        return callback(err);
+        return callback({ message: 'Error insert data point.' });
       callback(rows && rows.length > 0 ? rows[0] : null);
     });
   }
-  
-  // static retrieveAll (callback) {
-  //   db.query('SELECT * FROM meta.get_domain_items()', (err, rows) => {
-  //     if (err)
-  //       return callback(err);
-  //     callback(rows ? rows : null);
-  //   });
-  // }
 }
 
 module.exports = Data;

@@ -10,6 +10,7 @@ import About from './About';
 import Collection from './Collection';
 import NotFound from './NotFound';
 import Footer from './Footer';
+import Test from './Test';
 
 import receive from './utils/receive';
 
@@ -53,6 +54,7 @@ class App extends Component {
           <Switch>
             <Route path='/' exact render={props => <Login {...props} onSignIn={this.handleSignIn} />} />
             <Route path='/about' component={About} />
+            {/* <Route path='/test' component={Test} /> */}
             { this.state.isSignedIn 
               ? <Route path='/collection' component={Collection} /> 
               : <Redirect to={{ pathname: '/', state: { from: this.props.location } }} /> }

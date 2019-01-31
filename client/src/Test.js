@@ -12,7 +12,7 @@ import MetaOptionSelect from './MetaOptionSelect';
 import receive from './utils/receive';
 import send from './utils/send';
 
-class Collection extends Component {
+class Test extends Component {
   constructor(props) {
     super(props);
     
@@ -35,17 +35,17 @@ class Collection extends Component {
   componentDidMount () {
     document.title = 'Data Collection | Bryce St. Pierre';
 
-    receive('/api/domain', list => {
-      let domain = list.length > 0 ? list[0].value : 0;
-      this.setState({ 
-        domainList: list,
-        domain: domain
-      }, () => {
-        receive(`/api/category/${domain}`, list => {
-          this.setState({ categoryList: list });
-        });
-      });
-    });
+    // receive('/api/domain', list => {
+    //   let domain = list.length > 0 ? list[0].value : 0;
+    //   this.setState({ 
+    //     domainList: list,
+    //     domain: domain
+    //   }, () => {
+    //     receive(`/api/category/${domain}`, list => {
+    //       this.setState({ categoryList: list });
+    //     });
+    //   });
+    // });
   }
   
   handleSubmitData = (e) => {
@@ -56,10 +56,8 @@ class Collection extends Component {
       category: this.state.category,
       value: this.state.data
     }, res => {
-      this.setState({
-        data: '',
-        resultMessage: res.message
-      });
+      console.log(res.message);
+      //this.setState(defaultState);
     });
   };
 
@@ -70,23 +68,16 @@ class Collection extends Component {
         this.setState({ 
           domain: value,
           category: category,
-          categoryList: list,
-          resultMessage: ''
+          categoryList: list 
         });
       });
     } else {
-      this.setState({ 
-        [name]: value, 
-        resultMessage: '' 
-      });
+      this.setState({ [name]: value });
     }
   };
 
   handleInput = (e) => {
-    this.setState({ 
-      [e.target.name]: e.target.value,
-      resultMessage: ''
-    });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleToggleNewOption = (flag) => {
@@ -134,6 +125,18 @@ class Collection extends Component {
       flags: { newDomain: false, newCategory: false }
     });
   };
+
+  // getDomainList = () => {
+  //   receive('/api/domain', list => {
+  //     this.setState({ domainList: list });
+  //   });
+  // }
+
+  // getCategoryList = (domain) => {
+  //   receive(`/api/category/${domain}`, list => {
+  //     this.setState({ categoryList: list });
+  //   });
+  // }
 
   render () {
     const { flags } = this.state;
@@ -185,7 +188,7 @@ class Collection extends Component {
                   onCreate={this.handleCreateNewOption}
                   onCancel={this.handleCancelNewOption} /> }
 
-              <FormGroup className={'mb-4'}>
+              <FormGroup>
                 <Label for='data'>Data &emsp;
                   <Button 
                     size='sm'
@@ -210,10 +213,9 @@ class Collection extends Component {
                 </Button>
               </FormGroup>
 
-              { this.state.resultMessage !== '' && 
-                <Alert color={this.state.resultMessage.includes('Success') ? 'success' : 'danger'}>
-                  {this.state.resultMessage}
-                </Alert> } 
+              { <Alert color='danger'>
+                Success message.
+              </Alert>} 
             </Form>
           </Col>
         </Row>
@@ -222,4 +224,4 @@ class Collection extends Component {
   }
 }
 
-export default Collection;
+export default Test;

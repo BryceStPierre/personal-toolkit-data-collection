@@ -25,7 +25,7 @@ class MetaOptionCreate extends Component {
     const { name, label, value, placeholder } = this.props;
 
     return (
-      <FormGroup>
+      <FormGroup className={'mb-4'}>
         <Label for={name}>{label}</Label>
         <InputGroup>
           <Input 

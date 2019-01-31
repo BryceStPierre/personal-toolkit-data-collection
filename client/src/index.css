@@ -1,6 +1,6 @@
-.form-group {
+/* .form-group {
   margin-bottom: 2rem;
-} 
+}  */
 
 .bg-light {
   background-color: #fff!important;
@@ -31,5 +31,5 @@
 }
 
 #data {
-  height: 90px;
+  height: 70px;
 }
