@@ -73,7 +73,11 @@ class Login extends Component {
                   invalid={this.state.error ? true : false} />
                 { this.state.error && <FormFeedback>{this.state.error}</FormFeedback> } 
               </FormGroup>
-              <Button color='primary' type='submit'>Proceed&ensp;<FaRegArrowAltCircleRight /></Button>
+              <Button 
+                color='primary' 
+                type='submit'>
+                Proceed&ensp;<FaRegArrowAltCircleRight />
+              </Button>
             </Form>
           </Col>
         </Row>
