@@ -7,6 +7,7 @@ import {
 import Navigation from './Navigation';
 import Login from './Login';
 import About from './About';
+import Settings from './Settings';
 import Collection from './Collection';
 import NotFound from './NotFound';
 import Footer from './Footer';
@@ -50,10 +51,14 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Navigation onToggle={this.handleToggleNavigation} isOpen={this.state.isOpen} />
+          <Navigation 
+            isOpen={this.state.isOpen}
+            isSignedIn={this.state.isSignedIn}
+            onToggle={this.handleToggleNavigation} />
           <Switch>
             <Route path='/' exact render={props => <Login {...props} onSignIn={this.handleSignIn} />} />
             <Route path='/about' component={About} />
+            <Route path='/settings' component={Settings} />
             {/* <Route path='/test' component={Test} /> */}
             { this.state.isSignedIn 
               ? <Route path='/collection' component={Collection} /> 

@@ -48,7 +48,7 @@ class Collection extends Component {
     });
   }
   
-  handleSubmitData = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     send('/api/data', {
@@ -147,7 +147,7 @@ class Collection extends Component {
         </Row>
         <Row className={'justify-content-center'}>
           <Col xs={12} sm={10} md={8} lg={8} xl={6}>
-            <Form onSubmit={this.handleSubmitData}>
+            <Form onSubmit={this.handleSubmit}>
 
               { !flags.newDomain && <MetaOptionSelect
                   name='domain'

@@ -20,6 +20,7 @@ backend.use(passport.initialize());
 backend.use(passport.session());
 
 backend.use('/api/authenticate', require('./api/authenticate')(passport));
+backend.use('/api/settings', require('./api/settings'));
 backend.use('/api/category', require('./api/category'));
 backend.use('/api/domain', require('./api/domain'));
 backend.use('/api/data', require('./api/data'));

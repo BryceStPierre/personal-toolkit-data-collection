@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import {
-  Container, 
-  Navbar, NavbarToggler, 
-  Collapse, Nav, NavItem
+  Container, Navbar, NavbarToggler, Collapse, Nav, NavItem
 } from 'reactstrap';
+
+import { FaCog } from 'react-icons/fa';
 
 import bryce from './bryce.png';
 
@@ -22,9 +22,17 @@ const Navigation = (props) => (
           {/* <NavItem>
             <Link className='nav-link' to='/collection'>Collection</Link>
           </NavItem> */}
-          <NavItem>
+          { !props.isSignedIn && <NavItem>
             <Link className='nav-link' to='/about'>About</Link>
+          </NavItem> }
+          {/* { props.isSignedIn && <NavItem>
+            <Link className='nav-link' to='/settings'><FaCog /></Link>
+          </NavItem> } */}
+
+          <NavItem>
+            <Link className='nav-link' to='/settings'><FaCog /></Link>
           </NavItem>
+
           {/* <NavItem>
             <Link className='nav-link' to='/test'>Test</Link>
           </NavItem> */}
