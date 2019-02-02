@@ -139,14 +139,10 @@ class Collection extends Component {
     const { flags } = this.state;
     
     return (
-      <Container className={'mt-4'}>
-        <Row className={'mb-3'}>
-          <Col>
-            <h3>Collection</h3>
-          </Col>
-        </Row>
+      <Container>
         <Row className={'justify-content-center'}>
           <Col xs={12} sm={10} md={8} lg={8} xl={6}>
+            <h3 className={'mb-4'}>Collection</h3>
             <Form onSubmit={this.handleSubmit}>
 
               { !flags.newDomain && <MetaOptionSelect

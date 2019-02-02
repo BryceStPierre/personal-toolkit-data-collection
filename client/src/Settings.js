@@ -56,14 +56,10 @@ class Settings extends Component {
 
   render() {
     return (
-      <Container className={'mt-4 mb-3'}>
-        <Row className={'mb-3'}>
-          <Col>
-            <h3>Settings</h3>
-          </Col>
-        </Row>        
+      <Container> 
         <Row className={'justify-content-center mb-3'}>
           <Col xs={12} sm={10} md={8} lg={8} xl={6}>
+            <h3 className={'mb-4'}>Settings</h3>
             <h5 className={'mb-3'}>Change Password</h5>
             { !this.state.toggle && <Button onClick={this.toggleChangePassword}>
               Change <FaLockOpen />

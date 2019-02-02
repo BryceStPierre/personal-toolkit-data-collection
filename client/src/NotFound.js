@@ -9,9 +9,9 @@ class NotFound extends Component {
 
   render () {
     return (
-      <Container className={"mt-4"}>
-        <Row className={"mb-3"}>
-          <Col>
+      <Container>
+        <Row className={'justify-content-center'}>
+          <Col xs={12} sm={10} md={8} lg={8} xl={6}>
             <h3>404</h3>
             <p>Oops! That link is either broken or does not exist.</p>
           </Col>

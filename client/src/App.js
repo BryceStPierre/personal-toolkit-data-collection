@@ -61,14 +61,16 @@ class App extends Component {
             isOpen={this.state.isOpen}
             isSignedIn={this.state.isSignedIn}
             onToggle={this.handleToggleNavigation} />
-          <Switch>
-            <Route path='/' exact render={props => <Login {...props} onSignIn={this.handleSignIn} />} />
-            <Route path='/about' component={About} />
-            { this.state.isSignedIn 
-              ? <PrivateRoutes />
-              : <Redirect to={{ pathname: '/', state: { from: this.props.location } }} /> }
-            <Route component={NotFound} />
-          </Switch>
+          <div className='mt-4 mb-4'>
+            <Switch>
+              <Route path='/' exact render={props => <Login {...props} onSignIn={this.handleSignIn} />} />
+              <Route path='/about' component={About} />
+              { this.state.isSignedIn 
+                ? <PrivateRoutes />
+                : <Redirect to={{ pathname: '/', state: { from: this.props.location } }} /> }
+              <Route component={NotFound} />
+            </Switch>
+          </div>
           <Footer user={this.state.user}/>
         </div>
       </Router>

@@ -7,7 +7,7 @@ import { FaHeart } from "react-icons/fa";
 import bryce from './bryce.png';
 
 const Footer = (props) => (
-  <Container fluid className={'bg-light'}>
+  <Container className={'bg-light'}>
     { props.user && <Row>
       <Col className={'text-center mt-4'}>
         <p className={'text-small mb-0'}>

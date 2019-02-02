@@ -61,9 +61,9 @@ class Login extends Component {
       return <Redirect to='/collection' />;
 
     return (
-      <Container className={'mt-4 mb-4'}>
+      <Container>
         <Row className={'justify-content-center'}>
-          <Col xs={9} sm={6} md={6}>
+          <Col xs={12} sm={10} md={8} lg={8} xl={6}>
             <h3 className={'mb-3'}>Sign In</h3>
             <p>Please provide your password.</p>
             <Form onSubmit={this.handleLogin}>

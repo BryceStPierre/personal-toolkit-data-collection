@@ -10,9 +10,9 @@ class About extends Component {
 
   render () {
     return (
-      <Container className={"mt-4"}>
-        <Row className={"mb-3"}>
-          <Col>
+      <Container>
+        <Row className={'justify-content-center'}>
+          <Col xs={12} sm={10} md={8} lg={8} xl={6}>
             <h3>About</h3>
             <p>{values.paragraphs.about}</p>
           </Col>
