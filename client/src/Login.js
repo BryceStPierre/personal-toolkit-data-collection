@@ -8,7 +8,6 @@ import {
 
 import { FaRegArrowAltCircleRight } from 'react-icons/fa';
 
-import send from './utils/send';
 import receive from './utils/receive';
 
 class Login extends Component {
@@ -16,9 +15,9 @@ class Login extends Component {
     super(props);
   
     this.state = {
-      error: '',
       password: '',
       redirect: false,
+      errorMessage: ''
     };
   }
   
@@ -34,18 +33,25 @@ class Login extends Component {
     this.setState({ password: e.target.value });
   }
 
-  handleSubmit = (e) => {
+  handleLogin = (e) => {
     e.preventDefault();
 
-    send('/api/authenticate', {
-      username: 'owner',
-      password: this.state.password
-    }, user => {
+    fetch('/api/authenticate', {
+      method: 'post',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        username: 'owner', 
+        password: this.state.password
+      })
+    })
+    .then(res => res.status === 401 ? null : res.json())
+    .then(user => {
       if (user)
         this.props.onSignIn(user);
       this.setState({
-        error: user ? '' : 'Incorrect password. Please try again.',
-        redirect: user ? true : false
+        redirect: user ? true : false,
+        errorMessage: user ? '' : 'Incorrect password. Please try again.'
       });
     });
   }
@@ -60,7 +66,7 @@ class Login extends Component {
           <Col xs={9} sm={6} md={6}>
             <h3 className={'mb-3'}>Sign In</h3>
             <p>Please provide your password.</p>
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleLogin}>
               <FormGroup>
                 <Label for='password' hidden>Password</Label>
                 <Input 
@@ -69,9 +75,11 @@ class Login extends Component {
                   type='password' 
                   placeholder='Password'
                   value={this.state.password}
-                  onChange={this.handleChange}
-                  invalid={this.state.error ? true : false} />
-                { this.state.error && <FormFeedback>{this.state.error}</FormFeedback> } 
+                  invalid={this.state.errorMessage ? true : false}
+                  onChange={this.handleChange} />
+                { this.state.errorMessage && <FormFeedback>
+                  {this.state.errorMessage}
+                </FormFeedback> } 
               </FormGroup>
               <Button 
                 color='primary' 

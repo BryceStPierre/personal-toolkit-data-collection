@@ -15,6 +15,7 @@ class Settings extends Component {
     this.state = {
       toggle: false,
       mismatch: false,
+      resultMessage: '',
       oldPassword: '',
       newPassword: '',
       confirmPassword: ''
@@ -43,13 +44,19 @@ class Settings extends Component {
       oldPassword: this.state.oldPassword,
       newPassword: this.state.newPassword
     }, res => {
-      
+      this.setState({
+        mismatch: false,
+        oldPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+        resultMessage: res.message
+      });
     });
   };
 
   render() {
     return (
-      <Container className={'mt-4'}>
+      <Container className={'mt-4 mb-3'}>
         <Row className={'mb-3'}>
           <Col>
             <h3>Settings</h3>
@@ -68,6 +75,7 @@ class Settings extends Component {
                   type='password'
                   id='oldPassword'
                   name='oldPassword'
+                  placeholder='Current Password'
                   value={this.state.oldPassword}
                   onChange={this.handleChange} />
               </FormGroup>
@@ -77,6 +85,8 @@ class Settings extends Component {
                   type='password'
                   id='newPassword'
                   name='newPassword'
+                  placeholder='New Password'
+                  invalid={this.state.mismatch}
                   value={this.state.newPassword}
                   onChange={this.handleChange} />
               </FormGroup>
@@ -86,6 +96,8 @@ class Settings extends Component {
                   type='password'
                   id='confirmPassword'
                   name='confirmPassword'
+                  placeholder='Confirm Password'
+                  invalid={this.state.mismatch}
                   value={this.state.confirmPassword}
                   onChange={this.handleChange} />
               </FormGroup>
@@ -95,8 +107,16 @@ class Settings extends Component {
                 Change&ensp;<FaLock />
               </Button>
             </Form> }
+            
           </Col>
         </Row>
+        { this.state.resultMessage !== '' && <Row>
+          <Col>
+            <Alert color={this.state.resultMessage.includes('Error') ? 'danger' : 'success'}>
+              {this.state.resultMessage}
+            </Alert>
+          </Col>
+        </Row> }
       </Container>
     );
   }

@@ -11,9 +11,15 @@ import Settings from './Settings';
 import Collection from './Collection';
 import NotFound from './NotFound';
 import Footer from './Footer';
-import Test from './Test';
 
 import receive from './utils/receive';
+
+const PrivateRoutes = (props) => ( 
+  <span>
+    <Route path='/settings' component={Settings} /> 
+    <Route path='/collection' component={Collection} /> 
+  </span>
+);
 
 class App extends Component {
   constructor(props) {
@@ -58,10 +64,8 @@ class App extends Component {
           <Switch>
             <Route path='/' exact render={props => <Login {...props} onSignIn={this.handleSignIn} />} />
             <Route path='/about' component={About} />
-            <Route path='/settings' component={Settings} />
-            {/* <Route path='/test' component={Test} /> */}
             { this.state.isSignedIn 
-              ? <Route path='/collection' component={Collection} /> 
+              ? <PrivateRoutes />
               : <Redirect to={{ pathname: '/', state: { from: this.props.location } }} /> }
             <Route component={NotFound} />
           </Switch>

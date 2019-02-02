@@ -1,18 +1,18 @@
+const bcrypt = require('bcrypt');
+
 let db = require('../database');
 
-class Settings {
-  // static create (domainLabel, callback) {
-  //   db.query('SELECT * FROM integration.create_domain($1, $2)', 
-  //   [domainLabel.toLowerCase().replace(/ /g, '_'), domainLabel],
-  //   (err, rows) => {
-  //     if (err)
-  //       return callback(err);
-  //     callback(rows ? rows : null);
-  //   });
-  // }
-  
-  static changePassword (oldPassword, newPassword, callback) {
-
+class Settings { 
+  static changePassword (newPassword, callback) {
+    bcrypt.hash(newPassword, 10, (err, encrypted) => {
+      db.query('UPDATE meta.users SET password = $1 WHERE username = $2',
+      [encrypted, 'owner'],
+      (err, rows) => {
+        if (err)
+          return callback(err);
+        callback(rows ? rows : null);
+      });
+    });
   }
 }
 
