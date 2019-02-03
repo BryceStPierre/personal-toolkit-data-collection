@@ -5,7 +5,7 @@ import {
   Container, Navbar, NavbarToggler, Collapse, Nav, NavItem
 } from 'reactstrap';
 
-import { FaCog } from 'react-icons/fa';
+import { FaCog, FaSignOutAlt } from 'react-icons/fa';
 
 import bryce from './bryce.png';
 
@@ -24,6 +24,9 @@ const Navigation = (props) => (
           </NavItem> }
           { props.isSignedIn && <NavItem>
             <Link className='nav-link' to='/settings'><FaCog /></Link>
+          </NavItem> }
+          { props.isSignedIn && <NavItem>
+            <Link className='nav-link' to='/logout'><FaSignOutAlt /></Link>
           </NavItem> }
         </Nav>
       </Collapse>

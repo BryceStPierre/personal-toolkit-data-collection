@@ -6,6 +6,7 @@ import {
 
 import Navigation from './Navigation';
 import Login from './Login';
+import Logout from './Logout';
 import About from './About';
 import Settings from './Settings';
 import Collection from './Collection';
@@ -64,6 +65,7 @@ class App extends Component {
           <div className='mt-4 mb-4'>
             <Switch>
               <Route path='/' exact render={props => <Login {...props} onSignIn={this.handleSignIn} />} />
+              <Route path='/logout' render={props => <Logout {...props} onSignIn={this.handleSignIn} />} />
               <Route path='/about' component={About} />
               { this.state.isSignedIn 
                 ? <PrivateRoutes />
