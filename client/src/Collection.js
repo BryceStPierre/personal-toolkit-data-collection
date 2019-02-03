@@ -6,8 +6,8 @@ import {
 
 import { FaMicrophoneAlt, FaUpload } from 'react-icons/fa';
 
-import MetaOptionCreate from './MetaOptionCreate';
-import MetaOptionSelect from './MetaOptionSelect';
+import MetaOptionCreate from './components/MetaOptionCreate';
+import MetaOptionSelect from './components/MetaOptionSelect';
 
 import receive from './utils/receive';
 import send from './utils/send';

@@ -4,14 +4,14 @@ import {
   BrowserRouter as Router, Route, Redirect, Switch
 } from 'react-router-dom';
 
-import Navigation from './Navigation';
+import Navigation from './components/Navigation';
 import Login from './Login';
 import Logout from './Logout';
 import About from './About';
 import Settings from './Settings';
 import Collection from './Collection';
 import NotFound from './NotFound';
-import Footer from './Footer';
+import Footer from './components/Footer';
 
 import receive from './utils/receive';
 

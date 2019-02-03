@@ -7,7 +7,7 @@ import {
 
 import { FaCog, FaSignOutAlt } from 'react-icons/fa';
 
-import bryce from './bryce.png';
+import bryce from '../bryce.png';
 
 const Navigation = (props) => (
   <Navbar color='light' light expand='xs'>
