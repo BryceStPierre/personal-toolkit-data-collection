@@ -23,8 +23,8 @@ const Footer = (props) => {
         <Col className={'text-center mt-3 mb-2'}>
           <img 
             src={bryce} 
-            className={'branding-footer'} 
-            alt='Bryce St. Pierre' />
+            alt='Bryce St. Pierre' 
+            className={'branding-footer'} />
           <p className={'text-center mt-2'}> 
             Copyright &copy; {new Date().getFullYear()} Bryce St. Pierre.<br/>
             Made with <FaHeart className='text-red' /> in Ottawa.
