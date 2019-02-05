@@ -14,8 +14,8 @@ const Footer = (props) => {
       { props.user && <Row>
         <Col>
           <p className={'text-center text-small mb-0'}>
-            Signed in as {props.user.displayNameShort}.<br/>
-            Last login: {lastLogin.toDateString() + ' at ' + lastLogin.toLocaleTimeString() }.
+            {/* Signed in as {props.user.displayNameShort}.<br/> */}
+            Last login: {lastLogin.toDateString() + ' ' + lastLogin.toLocaleTimeString() }.
           </p>
         </Col>
       </Row> }
