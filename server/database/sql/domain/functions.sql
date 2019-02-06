@@ -1,7 +1,7 @@
 -----------------------------------------
 --Insert data point into specific domain.
 -----------------------------------------
-CREATE OR REPLACE FUNCTION app.insert_data (
+CREATE OR REPLACE FUNCTION domain.insert_data_point (
   domain_id INT,
   category_id INT,
   value_data TEXT
