@@ -8,7 +8,7 @@ CREATE TABLE meta.users (
 	created TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp()
 );
 
-CREATE TABLE meta.log (
+CREATE TABLE meta.logs (
   id SERIAL PRIMARY KEY NOT NULL,
   action VARCHAR(25) NOT NULL,
   message VARCHAR(125) NOT NULL,

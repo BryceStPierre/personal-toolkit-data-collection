@@ -1,8 +1,8 @@
+DROP TABLE meta.logs;
 DROP TABLE meta.users;
 DROP TABLE meta.domains;
 DROP TABLE meta.categories;
 
-DROP TABLE domain.sample_table;
 DROP FUNCTION domain.insert_data_point(INT, INT, TEXT, INT);
 
 DROP FUNCTION meta.create_category(INT, TEXT);
