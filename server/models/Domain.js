@@ -2,7 +2,7 @@ let db = require('../database');
 
 class Domain {
   static create (domainLabel, callback) {
-    db.query('SELECT * FROM integration.create_domain($1, $2)', 
+    db.query('SELECT * FROM meta.create_domain($1, $2)', 
     [domainLabel.toLowerCase().replace(/ /g, '_'), domainLabel],
     (err, rows) => {
       if (err)

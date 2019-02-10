@@ -1,17 +1,17 @@
 --------------------------------
 --Export data for sync purposes.
 --------------------------------
--- CREATE OR REPLACE FUNCTION meta.get_domain_items ()
--- RETURNS TABLE (
---   value INT,
---   text VARCHAR
--- ) AS $$
--- BEGIN
---   RETURN QUERY 
---     SELECT id, label FROM meta.domains 
---       ORDER BY label ASC;
--- END; 
--- $$ LANGUAGE 'plpgsql';
+CREATE OR REPLACE FUNCTION integration.extract ()
+RETURNS TABLE (
+  value INT,
+  text VARCHAR
+) AS $$
+BEGIN
+  RETURN QUERY 
+    SELECT id, label FROM meta.domains 
+      ORDER BY label ASC;
+END; 
+$$ LANGUAGE 'plpgsql';
 
 
 --------------------------------

@@ -67,6 +67,7 @@ class App extends Component {
               <Route path='/' exact render={props => <Login {...props} onSignIn={this.handleSignIn} />} />
               <Route path='/logout' render={props => <Logout {...props} onSignIn={this.handleSignIn} />} />
               <Route path='/about' component={About} />
+              {/* <Route path='/collection' component={Collection} />  */}
               { this.state.isSignedIn 
                 ? <PrivateRoutes />
                 : <Redirect to={{ pathname: '/', state: { from: this.props.location } }} /> }

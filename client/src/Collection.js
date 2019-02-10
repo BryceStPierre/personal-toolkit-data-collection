@@ -11,6 +11,7 @@ import MetaOptionSelect from './components/MetaOptionSelect';
 
 import receive from './utils/receive';
 import send from './utils/send';
+import values from './utils/values'
 
 class Collection extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Collection extends Component {
       data: '',
       domain: 0,
       category: 0,
+      dataType: 1,
       newDomain: '',
       newCategory: '',
       domainList: [],
@@ -54,7 +56,8 @@ class Collection extends Component {
     send('/api/data', {
       domain: this.state.domain,
       category: this.state.category,
-      value: this.state.data
+      value: this.state.data,
+      dataType: this.state.dataType
     }, res => {
       this.setState({
         data: '',
@@ -106,8 +109,10 @@ class Collection extends Component {
     send('/api/domain', {
       domain: this.state.newDomain
     }, list => {
+      let domain = list.length > 0 ? list[0].value : 0;
       this.setState({
         newDomain: '',
+        domain: domain,
         domainList: list,
         flags: { newDomain: false, newCategory: false }
       });
@@ -187,7 +192,15 @@ class Collection extends Component {
                     size='sm'
                     color='danger'>
                     Record&ensp;<FaMicrophoneAlt />
-                  </Button>
+                  </Button> &emsp;
+                  <Input
+                    bsSize='sm'
+                    type='select'
+                    id='dataType'
+                    name='dataType'
+                    onChange={this.handleInput}>
+                    { values.dataTypes.map(d => <option key={d.value} value={d.value}>{d.label}</option>) }
+                  </Input>
                 </Label>
                 <Input 
                   id='data'

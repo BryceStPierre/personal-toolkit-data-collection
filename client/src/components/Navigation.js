@@ -19,6 +19,9 @@ const Navigation = (props) => (
       <NavbarToggler onClick={props.onToggle} />
       <Collapse isOpen={props.isOpen} navbar>
         <Nav className='ml-auto' navbar>
+          {/* <NavItem>
+            <Link className='nav-link' to='/collection'>Collection</Link>
+          </NavItem> */}
           { !props.isSignedIn && <NavItem>
             <Link className='nav-link' to='/about'>About</Link>
           </NavItem> }

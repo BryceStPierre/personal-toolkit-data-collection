@@ -7,7 +7,7 @@ router.post('/', (req, res) => {
   if (!req.user)
     return res.json({ code: 401, message: 'Unauthorized access of API.' });
   
-  Data.create(req.body.domain, req.body.category, req.body.value, result => {
+  Data.create(req.body.domain, req.body.category, req.body.value, req.body.dataType, result => {
     console.log(result);
     res.json(result);
   });

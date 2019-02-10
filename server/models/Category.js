@@ -2,7 +2,7 @@ let db = require('../database');
 
 class Category {
   static create (domain, categoryLabel, callback) {
-    db.query('SELECT * FROM integration.create_category($1, $2)', [domain, categoryLabel], (err, rows) => {
+    db.query('SELECT * FROM meta.create_category($1, $2)', [domain, categoryLabel], (err, rows) => {
       if (err)
         return callback(err);
       callback(rows ? rows : null);

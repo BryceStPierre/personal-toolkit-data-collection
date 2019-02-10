@@ -8,6 +8,13 @@ CREATE TABLE meta.users (
 	created TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp()
 );
 
+CREATE TABLE meta.log (
+  id SERIAL PRIMARY KEY NOT NULL,
+  action VARCHAR(25) NOT NULL,
+  message VARCHAR(125) NOT NULL,
+  created TIMESTAMP WITHOUT TIME ZONE DEFAULT clock_timestamp()
+);
+
 CREATE TABLE meta.domains (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(75) NOT NULL,

@@ -1,3 +1,3 @@
-CREATE SCHEMA data;
 CREATE SCHEMA meta;
+CREATE SCHEMA domain;
 CREATE SCHEMA integration;
